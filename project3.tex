@@ -1,0 +1,62 @@
+\documentclass[titlepage,oneside,a4paper,10pt]{article}%openright,
+\usepackage{a4,graphicx,fancyhdr}
+\usepackage[english]{babel} 
+\usepackage{natbib}
+\usepackage[utf8]{inputenc}
+\usepackage[bf,footnotesize]{caption}
+\usepackage{hyperref}
+\usepackage[percent]{overpic}
+\usepackage{color}
+\usepackage{makeidx}
+\usepackage[bottom]{footmisc}
+\usepackage{amsmath,amssymb}
+\usepackage{subcaption}
+\usepackage[rightcaption]{sidecap}
+\usepackage{placeins}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{booktabs} % nice tabulars
+\usepackage{siunitx} % for proper writing of numbers with units
+\usepackage{todonotes} % make notes in latex document
+
+%\input amssym.def
+%\input amssym.tex
+
+\setlength{\hoffset}{-1in}%
+\setlength{\oddsidemargin}{2cm}%
+\setlength{\evensidemargin}{3cm}%
+\setlength{\textwidth}{16cm}%
+\setlength{\headheight}{15pt}%
+
+
+\parindent 0pt											%Einzug nach eine Absatz mit \par
+
+\pagestyle{fancy}%
+\renewcommand{\sectionmark}[1]{\markright{\thesection\ #1}}%
+\lhead[\thepage]{\rightmark}%
+\rhead[\leftmark]{\thepage}%
+\cfoot{}%
+
+\definecolor{middlegray}{rgb}{0.5,0.5,0.5}
+
+\lstset{language=C++,
+                basicstyle=\ttfamily,
+                keywordstyle=\color{blue}\ttfamily,
+                stringstyle=\color{red}\ttfamily,
+                commentstyle=\color{middlegray}\ttfamily,
+                morecomment=[l][\color{magenta}]{\#}
+}
+
+\bibliographystyle{apalike}
+
+\begin{document}
+    \include{title}
+    \pagenumbering{arabic}
+    \include{1-Introduction}
+	\include{2-Physical_problem}
+    \include{3-Algo}
+	\include{4-Results}
+%	\include{5-Discussion}
+	\include{6-Conclusion}    
+        \bibliography{Literatur}
+\end{document}
