@@ -7,7 +7,7 @@ where $\hat{H_0}$ describes the standard harmonic oscillator and $\hat{H_1}$ the
 \begin{equation}
 \hat{H} = \sum_{i=1}^N \left( -\frac{1}{2} \nabla_i^2 + \frac{1}{2} \omega^2 r_i^2 \right) + \sum_{i<j} \frac{1}{r_{ij}}
 \end{equation}
-The quantity $N$ denotes the number of charged particles, $\omega$ is the oscillator frequency, $r_i$ is the position of particle $i$ given by $r_i = \sqrt{r_{ix}^2 + r_{iy}^2}$ and distance between two particles is referred to as $r_{ij} = \sqrt{\mathbf{r_1}- \mathbf{r_2}}$.\\
+The quantity $N$ denotes the number of charged particles, $\omega$ is the oscillator frequency, $r_i$ is the position of particle $i$ given by $r_i = \sqrt{r_{ix}^2 + r_{iy}^2}$ and the distance between two particles is referred to as $r_{ij} = \sqrt{\mathbf{r_1}- \mathbf{r_2}}$.\\
 From quantum mechanics we know, that the wave function corresponding to this Hamiltonian for one electron in two dimensions $(x,y)$ is
 \begin{equation}\label{glg:wavefunc1}
 \phi_{n_x,n_y}(x,y) = A H_{n_x} (\sqrt{\omega} x) H_{n_y} (\sqrt{\omega} y) \exp\left[-\frac{\omega}{2} (x^2+y^2)\right].
@@ -43,4 +43,31 @@ Regarding the wave function there we will now make an Ansatz for simplifying the
 R(\mathbf{r_1,r_2}) = \varphi_{n_{x_1} n_{y_1}}(x_1, y_1) \varphi_{n_{x_2} n_{y_2}}(x_2, y_2)
 \end{align}
 In this Ansatz $R(\mathbf{r_1,r_2})$ is the part of the wave function depending on the positions and $X (\mathbf{\sigma_1, \sigma_2})$ is the spin-depending part, the matrices $\mathbf{\sigma_1}$ and $\mathbf{\sigma_2}$ are the spin matrices for particle 1 and 2.\\
-According to this Ansatz we can focus on the position-based part of the wave function for the following analysis.
+According to this Ansatz we can focus on the position-based part of the wave function for the following analysis.\\
+\subsection{Many-body problems}
+Furthermore we are going to focus on many-body problem by considering up to six electrons. In this case, the wave function can be written as
+\begin{equation}
+\Psi(\mathbf{r_1,r_2,\cdots, r_6}) = \det(\phi_1(\mathbf{r_1},\phi_2(\mathbf{r_2},\cdots,\phi_6(\mathbf{r_6}) \prod_{i<j}^6 \exp\left[\frac{a r_{ij}}{(1+\beta r_{ij}}\right],
+\end{equation}
+where again the $\phi_i(r_i)$ refer to single particle wave functions as in equation~\ref{glg:wavefunc1}.\\
+The determinant is also known to be called Slater determinant. Although it is the determinant of a $6\times 6$-matrix, it can be reexpressed in terms of $3\times 3$-determinants according to Cramer's rule.
+\begin{align}
+\begin{vmatrix}
+\phi_1(r_1) & \phi_1(r_2) & \cdots & \phi_1(r_6)\\
+\phi_2(r_1) & \ddots & &\vdots \\
+\vdots & & \ddots& \vdots\\
+\phi_6(r_1) & \cdots & \cdots & \phi_6(r_6)
+\end{vmatrix}
+=
+\begin{vmatrix}
+\phi_1(r_1)& \phi_1(r_2)& \phi_1(r_3)\\
+\phi_3(r_1)& \phi_3(r_2)& \phi_3(r_3)\\
+\phi_5(r_1)& \phi_5(r_2)& \phi_5(r_3)
+\end{vmatrix}
+\cdot
+\begin{vmatrix}
+\phi_2(r_4)& \phi_2(r_5)& \phi_2(r_6)\\
+\phi_4(r_4)& \phi_4(r_5)& \phi_4(r_6)\\
+\phi_6(r_4)& \phi_6(r_5)& \phi_6(r_6)
+\end{vmatrix}
+\end{align}
