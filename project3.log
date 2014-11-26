@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.7.6)  20 NOV 2014 17:52
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.7.6)  26 NOV 2014 14:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1507,7 +1507,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 \openout2 = `title.aux'.
 
  (./title.tex
-<UiO_A_ENG.pdf, id=43, 477.07578pt x 55.83067pt>
+<UiO_A_ENG.pdf, id=51, 477.07578pt x 55.83067pt>
 File: UiO_A_ENG.pdf Graphic file (type pdf)
  <use UiO_A_ENG.pdf>
 Package pdftex.def Info: UiO_A_ENG.pdf used on input line 2.
@@ -1563,61 +1563,89 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 20.
-) [4
+
+Underfull \hbox (badness 10000) in paragraph at lines 47--49
+
+ []
+
+[4
 
 
-] [5]
+] <distribution.pdf, id=143, 385.44pt x 277.035pt>
+File: distribution.pdf Graphic file (type pdf)
+ <use distribution.pdf>
+Package pdftex.def Info: distribution.pdf used on input line 68.
+(pdftex.def)             Requested size: 231.26578pt x 166.22227pt.
+
+<Brown.png, id=145, 412.54124pt x 311.1625pt>
+File: Brown.png Graphic file (type png)
+ <use Brown.png>
+Package pdftex.def Info: Brown.png used on input line 78.
+(pdftex.def)             Requested size: 247.52666pt x 186.69894pt.
+ [5] [6 <./distribution.pdf> <./Brown.png>]) [7]
 \openout2 = `4-Results.aux'.
 
-
-(./4-Results.tex) [6
+ (./4-Results.tex) [8
 
 
 ]
 \openout2 = `6-Conclusion.aux'.
 
- (./6-Conclusion.tex) [7
+ (./6-Conclusion.tex)
+[9
 
+
+] (./project3.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 62.
+ [10
 
 ]
-No file project3.bbl.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 62.
 Package atveryend Info: Empty hook `AfterLastShipout' on input line 62.
-(./project3.aux (./title.aux) (./1-Introduction.aux) (./2-Physical_problem.aux)
-(./3-Algo.aux) (./4-Results.aux) (./6-Conclusion.aux))
+ (./project3.aux (./title.aux) (./1-Introduction.aux)
+(./2-Physical_problem.aux) (./3-Algo.aux) (./4-Results.aux) (./6-Conclusion.aux
+))
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 62.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 62.
 Package rerunfilecheck Info: File `project3.out' has not changed.
-(rerunfilecheck)             Checksum: 4C2DE4DEE0FD94E89D85128668B2F73A;532.
+(rerunfilecheck)             Checksum: 4F38F012362FA1BADDB6C00D5DEBBE30;702.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 62.
  ) 
 Here is how much of TeX's memory you used:
- 27055 strings out of 493315
- 521723 string characters out of 6137905
- 561144 words of memory out of 5000000
- 29936 multiletter control sequences out of 15000+600000
- 9491 words of font info for 37 fonts, out of 8000000 for 9000
+ 27125 strings out of 493315
+ 522610 string characters out of 6137905
+ 562144 words of memory out of 5000000
+ 29976 multiletter control sequences out of 15000+600000
+ 14494 words of font info for 56 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 63i,16n,97p,439b,792s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 63i,16n,97p,893b,792s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
-usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></u
-sr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></us
-r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/
-local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/lo
-cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
-l/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/
-texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/tex
-live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texliv
-e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive
-/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2
-013/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texli
-ve/2013/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on project3.pdf (9 pages, 171480 bytes).
+usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></us
+r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr
+/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/
+local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/lo
+cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/loca
+l/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/
+texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/te
+xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texl
+ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/local/texlive
+/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/20
+13/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2013/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2013/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2013/texmf
+-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2013/t
+exmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on project3.pdf (12 pages, 285573 bytes).
 PDF statistics:
- 202 PDF objects out of 1000 (max. 8388607)
- 173 compressed objects within 2 object streams
- 42 named destinations out of 1000 (max. 500000)
- 90 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 289 PDF objects out of 1000 (max. 8388607)
+ 244 compressed objects within 3 object streams
+ 57 named destinations out of 1000 (max. 500000)
+ 116 words of extra memory for PDF output out of 10000 (max. 10000000)
 
