@@ -56,7 +56,7 @@ As a main ingredient, random numbers play as important role in Monte-Carlo simul
 \end{itemize}
 I this report, we use random number generators explained in~\cite{numerical}, that are called \texttt{ran0} and \texttt{ran1}.\\
 Furthermore, we generate random gaussian distributed random numbers using \texttt{gaussian} % woher kommt gaussian? Brauchen wir hier Code?
-\subsection{Metropolis algorithm}
+\subsection{Metropolis algorithm}\label{sec:metropolis}
 The difficult part of Monte-Carlo simulations is the selection rule for random states. One must find a method when to reject and when to accept the generated state. Precision and efficiency strongly depend on this rule. Supposing we have a distribution such as the one shown in figure~\ref{fig:distribution} and we have already picked an initial random variable at $r_i$. Since we are performing the simulation on many samples, we now have to pick a new random number keeping in mind, that there are two cases, which must be avoided:
 \begin{itemize}
 \item Choosing repeatedly numbers very close to the initial value such as $r_j$ in figure~\ref{fig:distribution}. We would then 'get stuck' around the interval of $r_i$ and therefore loose the overview of the function we are evalutating.
