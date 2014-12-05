@@ -1,5 +1,5 @@
 \section{The physical problem}\label{sec:problem}
-Quantum dots are nanoscopic crystals usually from semiconducting materials being of a size to exhibit quantum mechanical properties. In this report we will look at systems of electrons confined in a harmonic oscillator, which acts like a trap. These systems can be considered as quantum dots. In order to study any system like that, we have to look at the Hamiltonian, which consists of two parts:
+Quantum dots are nanoscopic crystals usually from semiconducting materials being of a size to exhibit quantum mechanical properties. In this report we will look at systems of electrons confined in a harmonic oscillator, which acts like a trap. These systems can be considered as quantum dots. In order to study such system like that, we have to look at the Hamiltonian, which consists of two parts:
 \begin{equation}
 \hat{H} = \hat{H_0} + \hat{H_1},
 \end{equation}
@@ -12,7 +12,7 @@ From quantum mechanics we know, that the wave function corresponding to this Ham
 \begin{equation}\label{glg:wavefunc1}
 \phi_{n_x,n_y}(x,y) = A H_{n_x} (\sqrt{\omega} x) H_{n_y} (\sqrt{\omega} y) \exp\left[-\frac{\omega}{2} (x^2+y^2)\right].
 \end{equation}
-In this equation the Hermite polynomials $H_{n_x} (\sqrt{\omega} x)$ appear as well as the constant $A$, which is there because of the normalization.\\
+In this equation the Hermite polynomials $H_{n_x} (\sqrt{\omega} x)$ appear as well as a constant $A$ resonponsible for the normalization.\\
 To get the energy $E$, we have to consider the Eigenvalue equation
 \begin{equation}\label{glg:eigenvalue}
 \hat{H} \phi_\lambda = E \phi_\lambda,
@@ -22,7 +22,7 @@ which leads to the energy
 E_{n_x,n_y} = \omega(n_x + n_y +1)
 \end{equation}
 Looking at the lowest energy state we have $E_{(1)}=\omega$.\\
-Advancing now to the case of two electrons who do not repell each other we have two independent Hamiltonians, one for each electron, and as a result two independent eigenvalue problems as in euqation~\ref{glg:eigenvalue}. This leads to the same energy as before, but this time the energy must be taken into account twice. So we get:
+Advancing now to the case of two electrons who do not repell each other we have two independent Hamiltonians, one for each electron, and as a result two independent eigenvalue problems as in equation~\ref{glg:eigenvalue}. This leads to the same energy as before, but this time the energy must be taken into account twice. So we get:
 \begin{equation}
 E_{(2)} = E_{(1)} + E_{(1)} = 2 E_{(1)}.
 \end{equation}
@@ -31,22 +31,22 @@ The corresponding wave function is then given by
 \Phi(\mathbf{r_1},\mathbf{r_2}) = C \exp\left[-\frac{\omega}{2} (r_1^2+r_2^2)\right].
 \end{equation}
 As in equation~\ref{glg:wavefunc1} $C$ is the normalization constant.\\
-Since the particles we are considering are fermions, we must regard the spin as well. The overall spin must be zero, because according to the Pauli principle two fermions cannot have the same quantum numbers. The electrons we are looking at are having exactly the same energy of $E = \omega$, so their only way of obeying the princple is to have different spins. There are two possible states:
+Since the particles we are considering are fermions, we must regard the spin as well. The overall spin must be zero, because according to the Pauli principle two fermions cannot have the same quantum numbers. The electrons we are looking at have exactly the same energy of $E = \omega$, so their only way of obeying the princple is to have different spins. There are two possible states:
 \begin{equation}
 |\uparrow \downarrow > \text{~and~} |\downarrow \uparrow >
 \end{equation}
-Hence one of the electrons has spin 1/2 and the other one has spin -1/2. Despite this they are indistinguishable, so both states are possible.\\
-Regarding the wave function there we will now make an Ansatz for simplifying the wave function $\psi$:
+Hence one of the electrons has spin 1/2 and the other one has spin -1/2. Despite this they are indistinguishable, which means both states are possible.\\
+Regarding the wave function we will now make an seperational ansatz for its simplification:
 \begin{align}
 \psi (\mathbf{r_1,\sigma_1,r_2, \sigma_2}) = R(\mathbf{r_1,r_2}) X (\mathbf{\sigma_1, \sigma_2})
 \intertext{with}
 R(\mathbf{r_1,r_2}) = \varphi_{n_{x_1} n_{y_1}}(x_1, y_1) \varphi_{n_{x_2} n_{y_2}}(x_2, y_2)
 \end{align}
-In this Ansatz $R(\mathbf{r_1,r_2})$ is the part of the wave function depending on the positions and $X (\mathbf{\sigma_1, \sigma_2})$ is the spin-depending part, the matrices $\mathbf{\sigma_1}$ and $\mathbf{\sigma_2}$ are the spin matrices for particle 1 and 2.\\
-According to this Ansatz we can focus on the position-based part of the wave function for the following analysis.\\
+In this ansatz $R(\mathbf{r_1,r_2})$ is the part of the wave function depending on the positions and $X (\mathbf{\sigma_1, \sigma_2})$ is the spin-depending part, the matrices $\mathbf{\sigma_1}$ and $\mathbf{\sigma_2}$ are the spin matrices for particle 1 and 2.\\
+According to this ansatz we can focus on the position-based part of the wave function for the following analysis of two electrons.\\
 \subsection{Many-body problems}
 Furthermore we are going to focus on many-body problem by considering up to six electrons. In this case, the wave function can be written as
-\begin{equation}
+\begin{equation}\label{glg:6electron}
 \Psi(\mathbf{r_1,r_2,\cdots, r_6}) = \det(\phi_1(\mathbf{r_1}),\phi_2(\mathbf{r_2}),\cdots,\phi_6(\mathbf{r_6}) \prod_{i<j}^6 \exp\left[\frac{a r_{ij}}{(1+\beta r_{ij}}\right],
 \end{equation}
 where again the $\phi_i(r_i)$ refer to single particle wave functions as in equation~\ref{glg:wavefunc1}.\\
@@ -58,7 +58,7 @@ The determinant is also known to be called Slater determinant. Although it is th
 \vdots & & \ddots& \vdots\\
 \phi_6(r_1) & \cdots & \cdots & \phi_6(r_6)
 \end{vmatrix}
-=
+\propto
 \begin{vmatrix}
 \phi_1(r_1)& \phi_1(r_2)& \phi_1(r_3)\\
 \phi_3(r_1)& \phi_3(r_2)& \phi_3(r_3)\\
