@@ -31,7 +31,7 @@ In the second case the variance of the energy
 \mathrm{var}(E) = \langle H^2 \rangle - \langle H\rangle^2 = 0.
 \end{equation}
 As the expansion wave function $\varphi_0$ we use a trial wave function we will call $\psi_T (\mathbf{r_1, r_2},\alpha, /beta)$, with $\alpha$ and $\beta$ being the variational parameters. In this report the trial wave function for two electrons has the form:
-\begin{equation}
+\begin{equation}\label{eq:trialwavefunction}
 \psi_T(\mathbf{r_1,r_2}) = C \exp\left[-\frac{\omega}{2} (r_1^2+r_2^2)\right] \exp \left[ \frac{a_{12} r_{12}}{(1+\beta r_{12})} \right]
 \end{equation}
 with
@@ -89,7 +89,7 @@ r_{new} &= r_{old} + \eta + \delta t D F_{old},
 \end{align}
 where $\eta$ denotes a gaussian distributed random variable, $\delta t$ refers to the time step, $D$ is the diffusion constant, which is in our case set to $D=0.5$ and $F_{old}$ is the quantum force at position $r_{old}$. Note, that $\eta$ are different random numbers.\\
 The term responsible for biasing the walk in space $x$ is the quantum force, which leads the walk to regions with large trial wave function. In a brute force Metropolis algorithm, the propability of moving would be the same for all directions. The quantum force is
-\begin{equation}
+\begin{equation}\label{eq:quantum_force}
 \mathbf{F} = 2 \frac{1}{\psi_T} \mathbf{\nabla} \psi_T
 \end{equation}
 In order to include this biasing in the Metropolis algorithm, we will replace
@@ -100,3 +100,35 @@ q(r_{old},r_{new}) &= \frac{G(r_{old},r_{new},\delta t) \vert \psi_T(r_{new})\ve
 \intertext{where the quantity $G$ refers to the Greensfunction}
 G(y,x,\delta t) &= \frac{1}{(4\pi D\delta t)^{3N/2}} \exp\left[-(y-x-D \delta t F(x))^2 \frac{1}{4D \delta t} \right]
 \end{align}
+
+
+\subsection{Closed form solutions}
+The quantum force (eq. \ref{eq:quantum_force}) and the kinetic energy part \todo{referenzierung auf funktion} are till now calculated with a brute force derivation. A disadvantage of this method is that the wavefunction has to be evaluated multiple times at different positions $r+h$, $r-h$ respectively. In order to optimize this step one can implement the analytical expressions. These are derived in \citet{hogberget2013}. The quantum force can thereby be expressed by
+\begin{equation}
+\mathbf{F_i} = 2 \left( \frac{\nabla_i |\mathbf{S\uparrow}|}{|\mathbf{S\uparrow}|} + \frac{\nabla_i J}{J} \right).
+\end{equation}
+The first part of the right side denotes the gradient of the Slater determinant, the second one the gradient of the Jastrow factor. It has to be payed attention that this is the expression for only one particle with index $i$ moved with spin up. Considering a spin down particle the $|\mathbf{S\uparrow}|$ becomes $|\mathbf{S\downarrow}|$. Further the kinetic part of the local energy arises as a result of
+\begin{equation}
+\frac{\nabla_i^2 \Psi_T}{\Psi_T} = \frac{\nabla_i^2 |\mathbf{S\uparrow}|}{|\mathbf{S\uparrow}|} + \frac{\nabla_i^2 J}{J} + 2\left( \frac{\nabla_i |\mathbf{S\uparrow}|}{|\mathbf{S\uparrow}|} \cdot \frac{\nabla_i J}{J} \right),
+\end{equation}
+again assuming a spin up particle.
+
+The missing expressions can be obtained by deriving the trial wavefunction \ref{} \todo{referenz zu allgemeiner trial wavefunction}. This is also done in \citet{hogberget2013} and reveals 
+\begin{equation}\label{eq:jastrow-derivations}
+    \frac{\nabla_i J}{J} = \sum_{k\neq i = 1}^{N}\frac{a_{ik}}{r_{ik}} \frac{\mathbf{r_i}-\mathbf{r_k}}{\left(1 + \beta r_{ik} \right)^2}
+\end{equation}
+for the gradient and 
+\begin{equation}
+    \frac{\nabla_i^2 J}{J} = \left| \frac{\nabla_i J}{J} \right| - \sum_{k\neq i = 1}^{N}a_{ik} \frac{\beta r_{ik} - 1}{r_{ik}\left(1 +\beta r_{ik} \right)^3} 
+\end{equation}
+for the laplacian of the jastrow factor. The variables and constants are the already known ones of equation \ref{} \todo{referenz zu trialwavefunction für viele teilchen}. The derivations of the Slater determinants can be calculated to
+\begin{equation}\label{eq:gradientslater}
+    \frac{\nabla_i |\mathbf{S}|}{|\mathbf{S}|} = \sum_k \left( \nabla_i \phi_k(\mathbf{r}_i)\right)(\mathbf{S}_{ki}^{-1})
+\end{equation}
+for the gradient and
+\begin{equation}\label{eq:laplacianslater}
+    \frac{\nabla_i^2 |\mathbf{S}|}{|\mathbf{S}|} = \sum_k^{N/2} \left( \nabla_i^2 \phi_k(\mathbf{r}_i)\right)(\mathbf{S}_{ki}^{-1})
+\end{equation}
+for the laplacian. For the first part on the right side of eqs. \ref{eq:gradientslater} and \ref{eq:laplacianslater} exists analytical expressions which can be determined by applying the operands on the single particle equation \ref{}\todo{referenziere single particle function}. These can also be found in tabulated form in \citet[app. D]{hogberget2013}. The last term $\mathbf{S}_{ki}^{-1}$ is the transpose of the inverse Slater matrix. 
+
+The closed form solutions are fully implemented in the code and can be found at Github on the branch \texttt{closed\_form}. Unfortunately there were still unresolved problems which yielded to non-correct energies in the solutions (details in the evaluation). 
