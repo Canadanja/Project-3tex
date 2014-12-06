@@ -2,7 +2,7 @@
 We will now first take a look at the case of two electrons in a potential with different oscillator energies. In order to do so, we preform a Variational Monte Carlo simluation and use the Metropolis algorithm explained in section~\ref{sec:metropolis} to find the energy of the ground state. Therefore we use numerical derivation. We will later introduce analytical calculations based on closed-form expressions as well (section~\ref{sec:analytical}). Besides, we put emphasis on the correlations introduced by the Jastro factor by computing the kinetic and potential energy of the ground state for different oscillator frequencies.\\
 In addition we introduce importance sampling and analyse the dependency of the results to the time step $\delta t$.\\
 \subsection{Two electron case}\label{sec:2electron}
-Since it is the easiest case, we first look at two electrons in a quantum dot interacting with each other. According to \cite{taut} the corresponding energy is at $E = 3~\mathrm{a.u.}$ (atomic units).\\
+Since it is the easiest case, we first look at two electrons in a quantum dot interacting with each other. According to \cite{lohne2011} the corresponding energy is at $E = 3~\mathrm{a.u.}$ (atomic units).\\
 For the computation we use the variational wave function
 \begin{equation}
 \psi_T(\mathbf{r_1,r_2}) = C \exp\left[-\alpha\frac{\omega}{2} (r_1^2+r_2^2)\right] \exp \left[ \frac{a_{12} r_{12}}{(1+\beta r_{12})} \right],
@@ -35,7 +35,7 @@ After computing the ground state energy we now analyse the changement in energy 
 \centering
 \caption{Kinetic and potential energy depending on the oscillator frequency $\omega$}
 \begin{tabular}{c|cc|cc}
-$\omega$ & $E_{kin} \mathrm{(a.u.)} $& $E_{pot} \mathrm{(a.u.)}$ & $E_{kin}/E \mathrm{(\%)}$ & $E_{kin}/E \mathrm{(\%)}$ \\ \hline
+$\omega$ & $E_{kin} \mathrm{(a.u.)} $& $E_{pot} \mathrm{(a.u.)}$ & $E_{kin}/E \mathrm{(\%)}$ & $E_{pot}/E \mathrm{(\%)}$ \\ \hline
 1.00    & 0.8891  & 2.111  & 29.6 & 70.4 \\
 0.28 & 0.2616  & 0.774  & 25.3 & 74.7 \\
 0.01 & 0.0106 & 0.096 & 9.9 & 90.1
