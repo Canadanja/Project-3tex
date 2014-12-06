@@ -116,7 +116,7 @@ The first part of the right side denotes the gradient of the Slater determinant,
 \end{equation}
 again assuming a spin up particle.
 
-The missing expressions can be obtained by deriving the trial wavefunction \ref{} \todo{referenz zu allgemeiner trial wavefunction}. This is also done in \citet{hogberget2013} and reveals 
+The missing expressions can be obtained by deriving the trial wavefunction \ref{glg:6electron}. This is also done in \citet{hogberget2013} and reveals 
 \begin{equation}\label{eq:jastrow-derivations}
     \frac{\nabla_i J}{J} = \sum_{k\neq i = 1}^{N}\frac{a_{ik}}{r_{ik}} \frac{\mathbf{r_i}-\mathbf{r_k}}{\left(1 + \beta r_{ik} \right)^2}
 \end{equation}
@@ -132,6 +132,6 @@ for the gradient and
 \begin{equation}\label{eq:laplacianslater}
     \frac{\nabla_i^2 |\mathbf{S}|}{|\mathbf{S}|} = \sum_k^{N/2} \left( \nabla_i^2 \phi_k(\mathbf{r}_i)\right)(\mathbf{S}_{ki}^{-1})
 \end{equation}
-for the laplacian. For the first part on the right side of eqs. \ref{eq:gradientslater} and \ref{eq:laplacianslater} exists analytical expressions which can be determined by applying the operands on the single particle equation \ref{}\todo{referenziere single particle function}. These can also be found in tabulated form in \citet[app. D]{hogberget2013}. The last term $\mathbf{S}_{ki}^{-1}$ is the transpose of the inverse Slater matrix. 
+for the laplacian. For the first part on the right side of eqs. \ref{eq:gradientslater} and \ref{eq:laplacianslater} exists analytical expressions which can be determined by applying the operands on the single particle equation \ref{glg:wavefunc1}. These can also be found in tabulated form in \citet[app. D]{hogberget2013}. The last term $\mathbf{S}_{ki}^{-1}$ is the transpose of the inverse Slater matrix. 
 
 The closed form solutions are fully implemented in the code and can be found at Github on the branch \texttt{closed\_form}. Unfortunately there were still unresolved problems which yielded to non-correct energies in the solutions (details in the evaluation). 
