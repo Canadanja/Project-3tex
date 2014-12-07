@@ -132,7 +132,7 @@ G(y,x,\delta t) &= \frac{1}{(4\pi D\delta t)^{3N/2}} \exp\left[-(y-x-D \delta t 
 \end{align}
 
 
-\subsection{Closed form solutions}
+\subsection{Closed form solutions}\label{sec:closed_form}
 The quantum force (eq. \ref{eq:quantum_force}) and the kinetic energy part \todo{referenzierung auf funktion} are till now calculated with a brute force derivation. A disadvantage of this method is that the wavefunction has to be evaluated multiple times at different positions $r+h$, $r-h$ respectively. In order to optimize this step one can implement the analytical expressions. These are derived in \citet{hogberget2013}. The quantum force can thereby be expressed by
 \begin{equation}
 \mathbf{F_i} = 2 \left( \frac{\nabla_i |\mathbf{S\uparrow}|}{|\mathbf{S\uparrow}|} + \frac{\nabla_i J}{J} \right).
