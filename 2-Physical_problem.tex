@@ -9,12 +9,12 @@ where $\hat{H_0}$ describes the standard harmonic oscillator and $\hat{H_1}$ the
 \end{equation}
 The quantity $N$ denotes the number of charged particles, $\omega$ is the oscillator frequency, $r_i$ is the position of particle $i$ given by $r_i = \sqrt{r_{ix}^2 + r_{iy}^2}$ and the distance between two particles is referred to as $r_{ij} = \sqrt{\mathbf{r_1}- \mathbf{r_2}}$.\\
 \subsection{Unperturbed wave functions}\label{sec:unperturbed}
-First we will take a good at the simpler case of unperturbed particles, not intercating with each other. A case, that is also called pure harmonic oscillator, because there are no other potential terms in the Hamiltonian, than the oscillator's potential.\\
+First we will take a good at the simpler case of unperturbed particles, not intercating with each other. A case, that is also called a pure harmonic oscillator, because there are no other potential terms in the Hamiltonian, than the oscillator's potential.\\
 From quantum mechanics we know, that the wave function corresponding to this Hamiltonian for one electron in two dimensions $(x,y)$ is
 \begin{equation}\label{glg:wavefunc1}
 \phi_{n_x,n_y}(x,y) = A H_{n_x} (\sqrt{\omega} x) H_{n_y} (\sqrt{\omega} y) \exp\left[-\frac{\omega}{2} (x^2+y^2)\right].
 \end{equation}
-In this equation the Hermite polynomials $H_{n_x} (\sqrt{\omega} x)$ appear as well as a constant $A$ resonponsible for the normalization.\\
+In this equation the Hermite polynomials $H_{n_x} (\sqrt{\omega} x)$ appear as well as a constant $A$ responsible for the normalization.\\
 To get the energy $E$, we have to consider the Eigenvalue equation
 \begin{equation}\label{glg:eigenvalue}
 \hat{H} \phi_\lambda = E \phi_\lambda,
@@ -87,7 +87,7 @@ For the calculation, it is convenient to reexpress the Slater determinant in ter
 \end{align} 
 and to compute their determinants afterwards. What we then get is:
 \begin{equation}
-\Psi(\mathbf{r_1,r_2,\cdots, r_6})= |\mathbf{S\uparrow}||\mathbf{S\downarrow}|\prod_{i<j}^6 \exp\left[\frac{a r_{ij}}{(1+\beta r_{ij}}\right].
+\Psi(\mathbf{r_1,r_2,\cdots, r_6})= |\mathbf{S\uparrow}||\mathbf{S\downarrow}|.
 \end{equation}
 The arrows indicate whether we are looking at spin-up or spin-down particles. We are free to choose which three particles should have spin up and which have spin down. The important thing is, that the overall spin is zero and that two electrons fill up the lowest energy state at $E=1\omega$ (with spin zero) and the other four electrons fill up the second lowest energy state at $E=2\omega$ again with overall spin zero.\\
 For six electrons in a pure harmonic oscillator the ground state energy should be at
@@ -95,4 +95,4 @@ For six electrons in a pure harmonic oscillator the ground state energy should b
 E = 2 \cdot 1\omega + 4 \cdot 2\omega = 10\omega.
 \end{equation}
 \subsection{Perturbed wave functions}
-Furthermore, we are interesed at interactions between the electrons: Because of their charge there is a repulsive force between the electrons represented by $\hat{H_1}$ in the Hamiltonian. This must also be considered in the wave function. Further explaination on this will be given in~\ref{sec:VMC}.
+Furthermore, we are interested at interactions between the electrons: Because of their charge there is a repulsive force between the electrons represented by $\hat{H_1}$ in the Hamiltonian. This must also be considered in the wave function and makes it not analytically solvable. Further explanation on this will be given in~\ref{sec:VMC}.

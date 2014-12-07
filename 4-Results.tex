@@ -59,7 +59,7 @@ In the wave equation
 \begin{equation}
 \psi_T(\mathbf{r_1,r_2}) = C \exp\left[-\alpha\frac{\omega}{2} (r_1^2+r_2^2)\right] \exp \left[ \frac{a_{12} r_{12}}{(1+\beta r_{12})} \right]
 \end{equation}
-only the first exponential term is affected by the oscillator frequency $\omega$, while the Jastro factor does not contain the frequency.\\
+only the first exponential term is affected by the oscillator frequency $\omega$, while the Jastrow factor does not contain the frequency.\\
 For vanishing potential as for $\omega =0.01$ the wave function becomes:
 \begin{equation}
 \lim_{\omega\rightarrow 0} \psi_T(\mathbf{r_1,r_2}) = C \exp \left[ \frac{a_{12} r_{12}}{(1+\beta r_{12})} \right] = C J,
@@ -77,11 +77,12 @@ For further simulations we will vary the time step depending on the oscillator f
 \end{figure}
 \FloatBarrier
 
-\subsection{Six electron case}
-In this part we introduce the six electron case. In order to do so we consider the more general trial wave function \ref{glg:6electron} which also can be reduced to the case of two electrons. The simulations are done like in section \ref{sec:2electron} but with $400000$ cycles, because of higher computation times. These are devided on 4 threads. For the time-step of the importance sampling (eq. \ref{eq:quantum_force}) we use the value $\delta t = 0.5$. 
+
+\subsection{Six electron case}\label{sec:6electron}
+In this part we introduce the six electron case. In order to do so we consider the more general trial wave function \ref{glg:sixelectron} which also can be reduced to the case of two electrons. The simulations are done like in section \ref{sec:2electron} but with $400000$ cycles, because of higher computation times. These are devided on 4 threads. For the time-step of the importance sampling (eq. \ref{eq:quantum_force}) we use the value $\delta t = 0.5$. 
 
 \subsubsection{Perturbed Case}\label{sec:perturbed_six}
-For the perturbed six electron system the ground state energies are shown in table \ref{tab:groundstate_sixelectron}. Comparing the energies with \citet{hogberget2013} we have a good agreement for the values. For increasing $\omega$ we have higher values of $\alpha$ and $\beta$. Figure \ref{fig:alpha_beta_omega} shows the dependencies in this case. It can be seen that there is no easy linear coherence, instead we made an arbitrarily chosen fit with a square-root function which seemed for us the best approximation and deals a reference where to search for the energy minima for different $\omega$. 
+For the perturbed six electron system the ground state energies are shown in table \ref{tab:groundstate_sixelectron}. Comparing the energies with \citet{hogberget2013} or alternatively with \citet{lohne2011} we have a good agreement for the values. For increasing $\omega$ we have higher values of $\alpha$ and $\beta$. Figure \ref{fig:alpha_beta_omega} shows the dependencies in this case. It can be seen that there is no easy linear coherence, instead we made an arbitrarily chosen fit with a square-root function which seemed for us the best approximation and deals as a reference where to search for the energy minima for different $\omega$. 
 \begin{table}
     \centering
     \caption{Ground state energies for six electrons in an oscillator well.}
@@ -119,7 +120,7 @@ We know that with switched off electron-electron repulsion the lowest energy val
 \subsubsection{Virial theorem}
 The virial theorem states a relationship between the mean of the potential $\langle V \rangle$ and of the kinetic energy $\langle T \rangle$ of a closed system. This is described by
 \begin{equation}
-    \gamma \langle V \rangle = 2 \langle T \rangle,
+    \gamma \, \langle V \rangle = 2\, \langle T \rangle,
 \end{equation}
 with $\gamma$ the homogeneity of the potential $V$. This means for a harmonic oscillator which potential goes with the power of $2$ that one can expect the relationship $\langle V \rangle = \langle T \rangle$. However if we consider the perturbed wavefunction we have additional terms which are stated by the repulsion of the electron and would reveal $\gamma = -1$. Hence, we can make the prediction that the perturbed wavefunction should yield to a smaller ratio 
 \begin{equation}
@@ -136,7 +137,7 @@ In figure \ref{fig:virialtheorem} this behaviour is shown and mostly consistent.
 \end{figure}
 
 \subsection{Closed form solutions}\label{sec:analytical}
-Finally we still want to perform calculations with the closed form solutions described in section \ref{sec:closed_form}. For that reason the program was restructured in parts and new classes for the Jastrow-factor and the Slater-matrix were introduced. This can be found at the separate branch \texttt{closed\_form} at the provided git repository. The part is fully implemented but unfortunately we were not able to reproduce the solution of the brute force approximations. But still, because we implemented the full code, we are able to examine the time profiling. We thereby used no optimizations yet, like an improved calculation of the inverse slater matrix yet (see \citet{hogberget2013} for more details). An overview for the profiling is given in the table \ref{tab:cpu-time}. It was done by calculating $5$ steps with $400000$ cycles on $4$ cores either for $N=2$ or $N=6$ electrons. The time is measured by the linux-command \texttt{time}.
+Finally we still want to perform calculations with the closed form solutions described in section \ref{sec:closed_form}. For that reason the program was restructured in parts and new classes for the Jastrow-factor and the Slater-matrix including their derivations were introduced. This can be found at the separate branch \texttt{closed\_form} at the provided git repository. The part is fully implemented but unfortunately we were not able to reproduce the solution of the brute force approximations. But still, because we implemented the full code, we are able to examine the time profiling. We thereby used no optimizations yet, like an improved calculation of the inverse slater matrix yet (see \citet{hogberget2013} for more details). An overview for the profiling is given in table \ref{tab:cpu-time}. It was done by calculating $5$ steps with $400000$ cycles on $4$ cores either for $N=2$ or $N=6$ electrons. The time is measured by the linux-command \texttt{time}.
  \begin{table}[htbp]
     \centering
     \caption{CPU-time comparison between closed-form and brute-force measurement}
@@ -151,5 +152,5 @@ Finally we still want to perform calculations with the closed form solutions des
     \label{tab:cpu-time}
 \end{table}
 
-For two electrons it is apparent that the closed-form solution is not faster than the brute-force one. This is probably the case because the evaluation of the wavefunction for only two electrons takes not much time, whereas the calculation of the closed derived formulas inhibits many floating point operations. That the closed-form solution makes sense shows up clearly for six electrons. There the calculation is by a factor of approximately $3.3$ faster, although elaborative calculations like the one of the inverse slater matrix in the equations of section \ref{sec:closed_form} are not stores and evaluated unnecessary often. Additionally further possible optimizations for the closed-form solution which are not possible in case of a brute force algorithm are not realized. 
+For two electrons it is apparent that the closed-form solution is not faster than the brute-force one. This is probably the case because the evaluation of the wavefunction for only two electrons takes not much time, whereas the calculation of the closed derived formulas inhibits many floating point operations. That the closed-form solution makes sense shows up clearly for six electrons. There the calculation is by a factor of approximately $3.3$ faster, although elaborative calculations like the one of the inverse slater matrix in the equations of section \ref{sec:closed_form} are not stores and evaluated unnecessary often. Additionally further possible optimizations for the closed-form solution which are not possible in case of the brute force algorithm are not realized. 
 

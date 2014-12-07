@@ -1,5 +1,5 @@
 \section{The method}\label{sec:algo}
-Solving quantum mechanical eigenvalue problems can be a hard task, especially when it involes particle interaction and when the number of particles increases. This is why we introduce the Variational Monte Carlo Method for estimating the energy and the wave function of the electron states. Using this method we will be able to consider different oscillator potentials and varying numbers of particles.
+Solving quantum mechanical eigenvalue problems can be a hard task, especially when it involves particle interaction and when the number of particles increases. This is why we introduce the Variational Monte Carlo Method for estimating the energy and the wave function of the electron states. Using this method we will be able to consider different oscillator potentials and varying numbers of particles.
 
 The repository to the program can be found under \url{https://github.com/Canadanja/Project-3.git}. 
 \subsection{Variational Monte Carlo method}\label{sec:VMC}
@@ -19,7 +19,7 @@ E = &\frac{\langle \psi_0 | \hat{H} | \psi_0 \rangle}{\langle \psi_0 | \psi_0 \r
 because by construction $\langle\psi_{\alpha}| \psi_{\beta}\rangle = \delta_{\alpha \beta}$ for eigenfunctions $\psi_{\alpha},\psi_{\beta}$.\\
 We have to consider two cases now:
 \begin{itemize}
-\item If the expansion $\varphi_0$ is not the eigenfunction $\psi_0$ we get the an energy
+\item If the expansion $\varphi_0$ is not the eigenfunction $\psi_0$ we get an energy
 \begin{equation}
 E_0 \leqslant \frac{\langle \varphi_0 | \hat{H} | \varphi_0 \rangle}{\langle \varphi_0 | \varphi_0 \rangle}.
 \end{equation}
@@ -42,7 +42,7 @@ a_{12} =\left\{\begin{array}{cl} 1, & \mbox{for} \uparrow\downarrow\\ 1/3, & \mb
 \intertext{and}
 r_{12} = \sqrt{\mathbf{r_1} - \mathbf{r_2}}.
 \end{align}
-The factor $J = \exp \left[ \frac{a_{12} r_{12}}{(1+\beta r_{12})} \right]$ is called the Jastrow factor. It introduces the repulsion terms between the particles. For the unperturbed wave function it becomes 1. In section~\ref{sec:Jastro} we will have a close look at the corrleations introduced by this factor.\\
+The factor $J = \exp \left[ \frac{a_{12} r_{12}}{(1+\beta r_{12})} \right]$ is called the Jastrow factor. It introduces the repulsion terms between the particles. For the unperturbed wave function it becomes 1. In section~\ref{sec:Jastro} we will have a close look at the correlations introduced by this factor.\\
 Corresponding to the wave function and the variational parameter $\alpha$ we can then define the local energy
 \begin{equation}
 E(\mathbf{r_1,r_2},\alpha,\beta) = \frac{1}{\psi_T} \mathbf{H} \psi_T.
@@ -56,12 +56,11 @@ This means, that we need the second derivative of the trial wavefunction. There 
 \begin{equation}
 f''(x) = \frac{f(x+h)-2f(x)+f(x-h)}{h^2},
 \end{equation}
-where $f(x)$ is a function evaluated at $x$ and $h$ is the step length for the derivation. This calculation is a very timeconsuming part of our computation. This is why we will consider the analytical expressions of the derivative in section~\ref{sec:closedform} and~\ref{sec:analytical}.
-The factor $J = \exp \left[ \frac{a_{12} r_{12}}{(1+\beta r_{12})} \right]$ is called the Jastrow factor, which we will refer to later.\\
+where $f(x)$ is a function evaluated at $x$ and $h$ is the step length for the derivation. This calculation is a very timeconsuming part of our computation. This is why later, in section~\ref{sec:closed_form} and~\ref{sec:analytical}, we will consider the analytical expressions of the derivative.\\
 In order to find the wave function and its corresponding energy to the case we are considering, we compute the expectation value $E(\alpha, \beta)$ and find its minimum or alternatively the minimum of its variance $\mathrm{var}(E(\alpha, \beta))$. This procedure is used in section~\ref{sec:result}.
 \subsubsection{Many-body problems}
 Furthermore we are going to focus on a many-body problem by considering up to six electrons. In this case, the wave function can be written as in section~\ref{sec:unperturbed}
-\begin{equation}\label{sixelectron}
+\begin{equation}\label{glg:sixelectron}
 \Psi(\mathbf{r_1,r_2,\cdots, r_6})= |\mathbf{S\uparrow}(\alpha)||\mathbf{S\downarrow}(\alpha)|\prod_{i<j}^6 J(\beta).
 \end{equation}
 Sure we want to calculate the local energy for six electron as well. For this purpose, we will generalize equation~\ref{glg:localenergy} as following for $6$ electrons:
@@ -73,7 +72,7 @@ In this case, we refer to the particles positions $(\mathbf{r_1,r_2,r_3,r_4,r_5,
 The basis of the method explained above are the Monte Carlo methods, which can be referred to as statistical simulation methods. The central building block of these methods is the propability distribution function (PDF), which is used to describe and characterize the physical problem. This does not restrict the method to statistical problems, but by displaying the desired solution in terms of PDF's, non-stochastic problems can be handled as well. During a Monte-Carlo simulation, random numbers must be generated covering an interval uniformly. Using these numbers, many random samples are taken from the PDF. In order to get the desired result the average of all samples is computed. According to this, the precision of the simulation rises with the amount of samples. The error has to be estimated to get an impression of the simulation's precision.\\
 On the contrary of statistical random number-based methods, in standard mathematical modelling, the problem would be distretized and solved by a numerical approach.\\
 \subsubsection{Pseudo-random number generation}\label{sec:ran}
-As a main ingredient, random numbers play as important role in Monte-Carlo simulations and therefore have to be 'as random as possible'. The generation of truely random numbers is practically not possible, this is why the random numbers we work with are pseudo-random, generated by an algorithm fullfilling the criteria of
+As a main ingredient, random numbers play an important role in Monte-Carlo simulations and therefore have to be 'as random as possible'. The generation of truly random numbers is practically not possible, this is why the random numbers we work with are pseudo-random, generated by an algorithm fullfilling the criteria of
 \begin{itemize}
 \item generating equally distributed numbers in a given interval (usually [0,1])
 \item repeating random number sequences seldom
@@ -85,8 +84,8 @@ Furthermore, we generate random gaussian distributed random numbers using \textt
 \subsection{Metropolis algorithm}\label{sec:metropolis}
 The difficult part of Monte-Carlo simulations is the selection rule for random states. One must find a method when to reject and when to accept the generated state. Precision and efficiency strongly depend on this rule. Supposing we have a distribution such as the one shown in figure~\ref{fig:distribution} and we have already picked an initial random variable at $r_i$. Since we are performing the simulation on many samples, we now have to pick a new random number keeping in mind, that there are two cases, which must be avoided:
 \begin{itemize}
-\item Choosing repeatedly numbers very close to the initial value such as $r_j$ in figure~\ref{fig:distribution}. We would then 'get stuck' around the interval of $r_i$ and therefore loose the overview of the function we are evalutating.
-\item Jumping to numbers far away from the initial value, where the distribution is negligable, for example to $r_k$ in figure~\ref{fig:distribution}. 
+\item Choosing repeatedly numbers very close to the initial value such as $r_j$ in figure~\ref{fig:distribution}. We would then 'get stuck' around the interval of $r_i$ and therefore loose the overview of the function we are evaluating.
+\item Jumping to numbers far away from the initial value, where the distribution is negligible, for example to $r_k$ in figure~\ref{fig:distribution}. 
 \end{itemize}
 \begin{SCfigure}[30][h]
     \centering
@@ -95,9 +94,9 @@ The difficult part of Monte-Carlo simulations is the selection rule for random s
     \label{fig:distribution}
 \end{SCfigure}
 \FloatBarrier
-Preventing the simulation in creating biased averages and unprecise results is possible by using the Metropolis algorithm, which is a Markov process, satisfying both ergodicity and detailed balance.\\
-Ergocidity in random processes means, that the time average of a sequence of events has to be the same as the average of all possible states, the so-called ensemble-average. In order to obey detailed balance, the process must follow a distribution, where the transition propability from state $i$ to state $j$ is the same as from state $j$ to state $i$ at equilibrium. This is also called reversibility.\\
-Markov chains are referred to as random walks with selected propability to make a move, which is independent of the previous step. An example of this movement is the Brownian random walk shown in figure~\ref{fig:Brown}, where a particle moves in the $x$-$y$-plane with step length 1 preforming hundred steps. The propability of moving is the same for every direction. Using Markov processes, we can generate new random states and reach the most likely state (equilibrium) after a certain time.
+Preventing the simulation in creating biased averages and imprecise results is possible by using the Metropolis algorithm, which is a Markov process, satisfying both ergodicity and detailed balance.\\
+Ergodicity in random processes means, that the time average of a sequence of events has to be the same as the average of all possible states, the so-called ensemble-average. In order to obey detailed balance, the process must follow a distribution, where the transition probability from state $i$ to state $j$ is the same as from state $j$ to state $i$ at equilibrium. This is also called reversibility.\\
+Markov chains are referred to as random walks with selected probability to make a move, which is independent of the previous step. An example of this movement is the Brownian random walk shown in figure~\ref{fig:Brown}, where a particle moves in the $x$-$y$-plane with step length 1 preforming hundred steps. The probability of moving is the same for every direction. Using Markov processes, we can generate new random states and reach the most likely state (equilibrium) after a certain time.
 \begin{SCfigure}[30][h]
     \centering
     \includegraphics[scale=0.45]{Brown}
@@ -118,7 +117,7 @@ if (ran2(&idum) <= wfnew*wfnew/wfold/wfold){
 }
 \end{lstlisting}
 where \texttt{wfnew} and \texttt{wfold} are the wave functions $\Psi(r_{old})$ and $\Psi(r_{new})$ and \texttt{ran2()} generates random numbers.\\
-This means, that we testwhether the random number is smaller, than the squared wave function at the new position devided by the squared wave function at the old position:
+This means, that we test whether the random number is smaller, than the squared wave function at the new position divided by the squared wave function at the old position:
 \begin{equation}
 \texttt{ran2(\&idum)} <= q(r_{old},r_{new}) = \frac{\vert \psi_T(r_{new})\vert^2}{\vert \psi_T(r_{old})\vert ^2}
 \end{equation}
@@ -174,7 +173,7 @@ The first part of the right side denotes the gradient of the Slater determinant,
 \end{equation}
 again assuming a spin up particle.
 
-The missing expressions can be obtained by deriving the trial wavefunction \ref{glg:6electron}. This is also done in \citet{hogberget2013} and reveals 
+The missing expressions can be obtained by deriving the trial wavefunction \ref{glg:sixelectron}. This is also done in \citet{hogberget2013} and reveals 
 \begin{equation}\label{eq:jastrow-derivations}
     \frac{\nabla_i J}{J} = \sum_{k\neq i = 1}^{N}\frac{a_{ik}}{r_{ik}} \frac{\mathbf{r_i}-\mathbf{r_k}}{\left(1 + \beta r_{ik} \right)^2}
 \end{equation}
