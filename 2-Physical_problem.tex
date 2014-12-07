@@ -1,15 +1,15 @@
 \section{The physical problem}\label{sec:problem}
-Quantum dots are nanoscopic crystals usually from semiconducting materials being of a size to exhibit quantum mechanical properties. In this report we will look at systems of electrons confined in a harmonic oscillator, which acts like a trap. These systems can be considered as quantum dots. In order to study such system, we have to look at the Hamiltonian, which consists of two parts:
+Quantum dots are nanoscopic crystals usually from semiconducting materials being of a size to exhibit quantum mechanical properties. In this report we will look at systems of electrons confined in a harmonic oscillator, which acts like a trap. These systems can be considered as quantum dots. In order to study such system, we have to look at its Hamiltonian, which consists of two parts:
 \begin{equation}
 \hat{H} = \hat{H_0} + \hat{H_1},
 \end{equation}
 where $\hat{H_0}$ describes the standard harmonic oscillator and $\hat{H_1}$ the repulsive term between the charged particles (in this case electrons). We can than write
 \begin{equation}
-\hat{H} = \sum_{i=1}^N \left( -\frac{1}{2} \nabla_i^2 + \frac{1}{2} \omega^2 r_i^2 \right) + \sum_{i<j} \frac{1}{r_{ij}}
+\hat{H} = \sum_{i=1}^N \left( -\frac{1}{2} \nabla_i^2 + \frac{1}{2} \omega^2 r_i^2 \right) + \sum_{i<j} \frac{1}{r_{ij}}.
 \end{equation}
 The quantity $N$ denotes the number of charged particles, $\omega$ is the oscillator frequency, $r_i$ is the position of particle $i$ given by $r_i = \sqrt{r_{ix}^2 + r_{iy}^2}$ and the distance between two particles is referred to as $r_{ij} = \sqrt{\mathbf{r_1}- \mathbf{r_2}}$.\\
 \subsection{Unperturbed wave functions}\label{sec:unperturbed}
-First we will take a good at the simpler case of unperturbed particles, not intercating with each other. A case, that is also called a pure harmonic oscillator, because there are no other potential terms in the Hamiltonian, than the oscillator's potential.\\
+First we will take a good at the simpler case of unperturbed particles, not interacting with each other. A case, that is also called a pure harmonic oscillator, because there are no other potential terms in the Hamiltonian, than the oscillator's potential.\\
 From quantum mechanics we know, that the wave function corresponding to this Hamiltonian for one electron in two dimensions $(x,y)$ is
 \begin{equation}\label{glg:wavefunc1}
 \phi_{n_x,n_y}(x,y) = A H_{n_x} (\sqrt{\omega} x) H_{n_y} (\sqrt{\omega} y) \exp\left[-\frac{\omega}{2} (x^2+y^2)\right].
@@ -21,10 +21,10 @@ To get the energy $E$, we have to consider the Eigenvalue equation
 \end{equation}
 which leads to the energy
 \begin{equation}
-E_{n_x,n_y} = \omega(n_x + n_y +1)
+E_{n_x,n_y} = \omega(n_x + n_y +1).
 \end{equation}
 Looking at the lowest energy state we have $E_{(1)}=\omega$.\\
-Advancing now to the case of two electrons who do not repell each other, we have two independent Hamiltonians, one for each electron, and as a result two independent eigenvalue problems as in equation~\ref{glg:eigenvalue}. This leads to the same energy as before, but this time the energy must be taken into account twice. So we get:
+Advancing now to the case of two electrons that do not repell each other, we have two independent Hamiltonians, one for each electron, and as a result two independent eigenvalue problems as in equation~\ref{glg:eigenvalue}. This leads to the same energy as before, but this time the energy must be taken into account twice. So we get
 \begin{equation}
 E_{(2)} = E_{(1)} + E_{(1)} = 2 E_{(1)} = 2\omega.
 \end{equation}
@@ -37,10 +37,10 @@ Since the particles we are considering are fermions, we must regard the spin as 
 \begin{equation}
 |\uparrow \downarrow > \text{~and~} |\downarrow \uparrow >
 \end{equation}
-Hence one of the electrons has spin 1/2 and the other one has spin -1/2. This lead to an overall spin of zero. Despite this they are indistinguishable, which means both states are possible.\\
+Hence one of the electrons has spin 1/2 and the other one has spin -1/2. This lead to an overall spin of zero. Despite, they are indistinguishable, which means both states are possible.\\
 Regarding the wave function we will now simplificate it by a separational ansatz:
 \begin{align}
-\psi (\mathbf{r_1,\sigma_1,r_2, \sigma_2}) = \phi_1(\mathbf{r_1}) \phi_2(\mathbf{r_2}), 
+\psi (\mathbf{r_1,r_2}) = \phi_1(\mathbf{r_1}) \phi_2(\mathbf{r_2}), 
 \end{align}
 which is also known as the Hartree product. Considering fermions, this is not an appropriate way to represent the wave function, because it does not obey the Pauli exclusion principle, which yields to antisymmetric wave functions. To solve this problem, we can use a linear combination of such wave functions $\phi_{1,2}$:
 \begin{equation}
@@ -64,7 +64,7 @@ Since we are going to analyse systems of up to six electrons as well, we will ge
 \phi_N(r_1) & \cdots & \cdots & \phi_N(r_N)
 \end{vmatrix}
 \end{align}
-For the calculation, it is convenient to reexpress the Slater determinant in terms of $3\times 3$-determinants according to Cramer's rule:
+For the calculation of the six electron system, it is convenient to reexpress the Slater determinant in terms of $3\times 3$-determinants according to Cramer's rule:
 \begin{align}
 \begin{vmatrix}
 \phi_1(r_1) & \phi_1(r_2) & \cdots & \phi_1(r_6)\\
@@ -87,7 +87,7 @@ For the calculation, it is convenient to reexpress the Slater determinant in ter
 \end{align} 
 and to compute their determinants afterwards. What we then get is:
 \begin{equation}
-\Psi(\mathbf{r_1,r_2,\cdots, r_6})= |\mathbf{S\uparrow}||\mathbf{S\downarrow}|.
+\psi(\mathbf{r_1,r_2,\cdots, r_6})= |\mathbf{S\uparrow}||\mathbf{S\downarrow}|
 \end{equation}
 The arrows indicate whether we are looking at spin-up or spin-down particles. We are free to choose which three particles should have spin up and which have spin down. The important thing is, that the overall spin is zero and that two electrons fill up the lowest energy state at $E=1\omega$ (with spin zero) and the other four electrons fill up the second lowest energy state at $E=2\omega$ again with overall spin zero.\\
 For six electrons in a pure harmonic oscillator the ground state energy should be at
