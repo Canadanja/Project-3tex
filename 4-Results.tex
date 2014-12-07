@@ -118,9 +118,9 @@ In figure \ref{fig:virialtheorem} this behaviour is shown and mostly consistent.
 \begin{figure}[htbp]
     \centering
     \includegraphics[scale=0.7]{virialtheorem}
-    \caption{Shows the fraction of the mean kin. energy $\langle T \rangle$ to the mean pot. energy $\langle V \rangle$ for different values of $\omega$. The calculations are done with either two or six electrons. The unperturbed function}
+    \caption{Shows the fraction of the mean kin. energy $\langle T \rangle$ to the mean pot. energy $\langle V \rangle$ for different values of $\omega$. The calculations are done with either two or six electrons.}
     \label{fig:virialtheorem}
 \end{figure}
 
-\subsection{Closed form solutions}\label{sec:analytical}
-Finally we still want to introduce calculations with the closed form solutions described in section \ref{sec:closed_form}. For that reason the program was restructured in parts and new classes for the Jastrow-factor and the Slater-matrix were introduced. This can be found at the separate branch \texttt{closed_form} at the provided git repository. The part is fully implemented but unfortunately we were not able to reproduce the solution of the brute force approximations. But still because we implemented the full code, we were able to calculate the profiling and can make first estimations how much faster the code could be. We thereby implemented no optimizations, like an improved calculation of the inverse slater matrix yet (see \citet{hogberget2013} for more details). An overview for the profiling is given in the table \ref{}\todo{reference}.
+\subsection{Closed form solutions}\label{sec:closed_form_eval}
+Finally we still want to introduce calculations with the closed form solutions described in section \ref{sec:closed_form}. For that reason the program was restructured in parts and new classes for the Jastrow-factor and the Slater-matrix were introduced. This can be found at the separate branch \texttt{closed\_form} at the provided git repository. The part is fully implemented but unfortunately we were not able to reproduce the solution of the brute force approximations. But still, because we implemented the full code, we were able to examine the time profiling. We thereby implemented no optimizations, like an improved calculation of the inverse slater matrix yet (see \citet{hogberget2013} for more details). An overview for the profiling is given in the table \ref{} \todo{reference}.
