@@ -12,7 +12,9 @@ where we start by considering a wide range of $\alpha \in[0.7,1.3]$ and $\beta \
 E &= 3.0003~\mathrm{a.u.}
 \intertext{at}
 \alpha &= 0.9867,\\
-\beta &= 0.4033.
+\beta &= 0.4033
+\intertext{and at a mean distance of}
+r_{12} &=1.607 ~\mathrm{a.u.}
 \end{align}
 As mentioned before we were expecting the energy to be at $E=3~\mathrm{a.u.}$, so the calculated value matches the expected one very well. In figure~\ref{fig:2electron} there are some areas, where the plane is not as smooth as in others. We classify these small perturbations to the valley as numerical fluctuations and consider them to be stronly important.\\
 To get a better understanding of the influence the parameters have on the calculated energy, figure~\ref{fig:2electronalpha} shows the energy's $\alpha$-dependency for different $\beta$. Consistent with figure~\ref{fig:2electron} this figure reveals, that $\beta$ is shifted depending on $\alpha$ and that $\alpha$ has a larger influence on the energy than the other variational parameter. The errors plotted in figure~\ref{fig:2electronalpha} are almost invisible, since they are very small compared to the energy fluctuations at varying $\alpha$ and $\beta$. There are not many cases, where the error is significantly high, so we consider our results to be of sufficient accuracy.
@@ -29,8 +31,8 @@ To get a better understanding of the influence the parameters have on the calcul
     \label{fig:2electronalpha}
 \end{figure}
 \FloatBarrier
-\subsubsection{Jastrow factor}
-After computing the ground state energy we now analyse the changement in energy arising from different osciallator potentials $\omega$. The results for $\omega =\{1,0.28,0.01\}$ are shown in table~\ref{tab:omega}. It can be observed, that for small oscillator frequency the kinetic energy drops relative to the total energy of the system. The reason for this is, that for small $\omega$ the potential gets wider, but flatter as well. In this case, the electrons interact less with each other, which results in decreasing kinetic energy.\\
+\subsubsection{Jastrow factor}\label{sec:Jastro}
+After computing the ground state energy we now analyse the changement in energy arising from different osciallator potentials $\omega$. The results for $\omega =\{1,0.28,0.01\}$ are shown in table~\ref{tab:omega}. It can be observed, that for small oscillator frequency the kinetic energy drops relative to the total energy of the system. The reason for this is, that for small $\omega$ the potential gets wider, but flatter as well. In this case, the electrons interact less with each other, because they are further apart. As a result, kinetic energy drops.\\
 \begin{table}[H]
 \centering
 \caption{Kinetic and potential energy depending on the oscillator frequency $\omega$}
@@ -56,10 +58,11 @@ For vanishing potential as for $\omega =0.01$ the wave function becomes:
 \begin{equation}
 \lim_{\omega\rightarrow 0} \psi_T(\mathbf{r_1,r_2}) = C \exp \left[ \frac{a_{12} r_{12}}{(1+\beta r_{12})} \right] = C J,
 \end{equation}
-where $J$ is the Jastrow factor. This means, that in this case the Jastrow factor adopts a more important role. The correlations introduced by the Jastro factor \todo{correlations of Jastro factor}
+where $J$ is the Jastrow factor. This means, that in this case the Jastrow factor adopts a more important role. The interaction potential is then compared to the oscillator potential at a higher value.
 \subsubsection{Importance sampling: $\delta t$-dependency}
 To obtain accurate results we also introduce important sampling and optimize the calculation of the energy by studying its time step dependency. We will refer to the time step as $\delta t$. The time step plays an important role in importance sampling, since it the biasing when calculation new random numbers. For large $\delta t$ the newly picked random numbers for the particle position can vary more, than for smaller $\delta t$. It is therefore relevant to use a reasonable time step to aviod jumping to far in the position or to get stuck in one place as explained previously in section~\ref{sec:importance}. In figure~\ref{fig:importance} we plotted the energy calculated for $\alpha = 0.98$ and $\beta = 0.40$ (according to~\ref{sec:2electron}) for diverse $\delta t$. Comparing the results including importance sampling to those in section~\ref{sec:2electron} we notice, that with importance sampling we can obtain a lot smaller energies, than when using a brute force Metropolis algorithm. This shows, that the importance sampling has an impact on the precision of the results, because we get energies very near the exact solution.\\
-Concerning the optimal value of $\delta t$, it is obvious in figure~\ref{fig:importance}, that it must be $\delta t \in [0.1,0.2]$. Because of the statistical spread of the energy values, we cannot find the one and only perfect $\delta t$-value. For large time steps, that are still smaller than $\delta t= 4$ the energy converges to $E=3.002$. For even higher time steps, the calculated energy increases strongly and precise simulations become impossible.
+Concerning the optimal value of $\delta t$, it is obvious in figure~\ref{fig:importance}, that it must be $\delta t \in [0.1,0.2]$. Because of the statistical spread of the energy values, we cannot find the one and only perfect $\delta t$-value. For large time steps, that are still smaller than $\delta t= 4$ the energy converges to $E=3.002$. For even higher time steps, the calculated energy increases strongly and precise simulations become impossible.\\
+For further simulations we will vary the time step depending on the oscillator freuqency as well, because of the potential spread for small frequencies. In this case, we have to higher the time step to get stable importance sampling with enough accepted steps. Otherwise we might end up in as described in section~\ref{sec:importance} at the boundaries of our distribution or in a small intervall at a certain point, producing biased data.
 \begin{figure}[htbp]
     \centering
     \includegraphics[scale=0.6]{importance}

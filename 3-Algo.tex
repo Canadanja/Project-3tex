@@ -1,6 +1,6 @@
 \section{The method}\label{sec:algo}
-As presented in the previous section the eigenvalue problem of two electrons in a harmonic oscillator without any interaction terms can be easily solved. Looking at electrons in a quantum dot this calculation gains complexity. This is why we introduce the Variational Monte Carlo Method for estimating the electron states.
-\subsection{Variational Monte Carlo method}
+Solving quantum mechanical eigenvalue problems can be a hard task, especially when it involes particle interaction and when the number of particles increases. This is why we introduce the Variational Monte Carlo Method for estimating the energy and the wave function of the electron states. Using this method we will be able to consider different oscillator potentials and varying numbers of particles.
+\subsection{Variational Monte Carlo method}\label{sec:VMC}
 In the Variational principle, we take the eigenvalue problem from equation~\ref{glg:eigenvalue} and expand the wave function as following:
 \begin{equation}
 \varphi_0 = \sum_{\lambda=0}^{\infty} c_{0 \lambda} \psi_{\lambda},
@@ -8,7 +8,7 @@ In the Variational principle, we take the eigenvalue problem from equation~\ref{
 where $c_{0 \lambda}$ are coefficients.\\
 In quantum mechanics the energy is the expectation value
 \begin{align}
-E = &\frac{\langle \psi_0 | \hat{H} | \psi_0 \rangle}{\langle \psi_0 | \psi_0 \rangle}\\
+E = &\frac{\langle \psi_0 | \hat{H} | \psi_0 \rangle}{\langle \psi_0 | \psi_0 \rangle}.
 \intertext{So when we apply the expansion to this, we get:}
 &\frac{\langle \varphi_0 | \hat{H} | \varphi_0 \rangle}{\langle \varphi_0 | \varphi_0 \rangle}\\
 = &\frac{\sum_{\alpha,\beta}c_{0\alpha}^*c_{0 \beta} \int d\tau \psi_{\alpha}^*(\tau)\hat{H}\psi_{\beta}(\tau)}{\sum_{\alpha,\beta}c_{0\alpha}^*c_{0 \beta} \int d\tau \psi_{\alpha}^*(\tau)\psi_{\beta}(\tau)}\\
@@ -30,7 +30,7 @@ In the second case the variance of the energy
 \begin{equation}
 \mathrm{var}(E) = \langle H^2 \rangle - \langle H\rangle^2 = 0.
 \end{equation}
-As expansion wave function $\varphi_0$ we use a trial wave function we will call $\psi_T (\mathbf{r_1, r_2},\alpha, \beta)$, with $\alpha$ and $\beta$ being the variational parameters. In this report the trial wave function for two electrons has the form:
+As expansion wave function $\varphi_0$ we use a trial wave function we will call $\psi_T (\mathbf{r_1, r_2},\alpha, \beta)$, with $\alpha$ and $\beta$ being the variational parameters. In this report the trial wave function for two interacting electrons has the form:
 \begin{equation}
 \psi_T(\mathbf{r_1,r_2},\alpha,\beta) = C \exp\left[-\alpha\frac{\omega}{2} (r_1^2+r_2^2)\right] \exp \left[ \frac{a_{12} r_{12}}{(1+\beta r_{12})} \right]
 \end{equation}
@@ -40,54 +40,33 @@ a_{12} =\left\{\begin{array}{cl} 1, & \mbox{for} \uparrow\downarrow\\ 1/3, & \mb
 \intertext{and}
 r_{12} = \sqrt{\mathbf{r_1} - \mathbf{r_2}}.
 \end{align}
-The factor $J = \exp \left[ \frac{a_{12} r_{12}}{(1+\beta r_{12})} \right]$ is called the Jastrow factor, which we will refer to later.\\
+The factor $J = \exp \left[ \frac{a_{12} r_{12}}{(1+\beta r_{12})} \right]$ is called the Jastrow factor. It introduces the repulsion terms between the particles. For the unperturbed wave function it becomes 1. In section~\ref{sec:Jastro} we will have a close look at the corrleations introduced by this factor.\\
 Corresponding to the wave function and the variational parameter $\alpha$ we can then define the local energy
 \begin{equation}
 E(\mathbf{r_1,r_2},\alpha,\beta) = \frac{1}{\psi_T} \mathbf{H} \psi_T.
 \end{equation}
 Inserting the Hamiltonian in the local energy calculation we get
 \begin{equation}\label{glg:localenergy}
-E(\mathbf{r_1,r_2},\alpha,\beta) = \frac{1}{\psi_T} \left(-\frac{\hbar^2}{2m}\sum_{i=1}^2 \nabla^2_i\right) \frac{1}{\psi_T} + V_{1}(\mathbf{r_1}) + V_{2}(\mathbf{r_2}) + V_{interaction}(|\mathbf{r_1}-\mathbf{r_2}|)
+E(\mathbf{r_1,r_2},\alpha,\beta) = \frac{1}{\psi_T} \left(-\frac{\hbar^2}{2m}\sum_{i=1}^2 \nabla^2_i\right) \frac{1}{\psi_T} + V_{1}(\mathbf{r_1}) + V_{2}(\mathbf{r_2}) + V_{interaction}(|\mathbf{r_1}-\mathbf{r_2}|),
 \end{equation}
+with the harmonic oscillator potentials $V_1$ and $V_2$.\\
 This means, that we need the second derivative of the trial wavefunction. There are different ways to calculate this quantity. First we will approximate it by numerical brute force derivation 
 \begin{equation}
 f''(x) = \frac{f(x+h)-2f(x)+f(x-h)}{h^2},
 \end{equation}
 where $f(x)$ is a function evaluated at $x$ and $h$ is the step length for the derivation. This calculation is a very timeconsuming part of our computation. This is why later, in section~\ref{sec:closedform} and~\ref{sec:analytical}, we will consider the analytical expressions of the derivative.
 The factor $J = \exp \left[ \frac{a_{12} r_{12}}{(1+\beta r_{12})} \right]$ is called the Jastrow factor, which we will refer to later.\\
-In order to find the wave function and its corresponding energy to the case we are considering, we compute the expectation value $E(\alpha, \beta)$ and find its minimum or alternatively the minimum of its variance $\mathrm{var}(E(\alpha, \beta))$. This procedure is used in section~\ref{sec:result}. For the six electron case, the variational wave function becomes as in equation~\ref{glg:6electron} and we can again search the minimum energy.
+In order to find the wave function and its corresponding energy to the case we are considering, we compute the expectation value $E(\alpha, \beta)$ and find its minimum or alternatively the minimum of its variance $\mathrm{var}(E(\alpha, \beta))$. This procedure is used in section~\ref{sec:result}.
 \subsubsection{Many-body problems}
-Furthermore we are going to focus on a many-body problem by considering up to six electrons. In this case, the wave function can be written as
-\begin{equation}\label{glg:6electron}
-\Psi(\mathbf{r_1,r_2,\cdots, r_6}) = \det(\phi_1(\mathbf{r_1}),\phi_2(\mathbf{r_2}),\cdots,\phi_6(\mathbf{r_6})) \prod_{i<j}^6 \exp\left[\frac{a r_{ij}}{(1+\beta r_{ij}}\right],
+Furthermore we are going to focus on a many-body problem by considering up to six electrons. In this case, the wave function can be written as in section~\ref{sec:unperturbed}
+\begin{equation}\label{sixelectron}
+\Psi(\mathbf{r_1,r_2,\cdots, r_6})= |\mathbf{S\uparrow}(\alpha)||\mathbf{S\downarrow}(\alpha)|\prod_{i<j}^6 J(\beta).
 \end{equation}
-where again the $\phi_i(r_i)$ refer to single particle wave functions as in equation~\ref{glg:wavefunc1}.\\
-The determinant is also known to be called Slater determinant. Although it is the determinant of a $6\times 6$-matrix, it can be reexpressed in terms of $3\times 3$-determinants according to Cramer's rule.
-\begin{align}
-\begin{vmatrix}
-\phi_1(r_1) & \phi_1(r_2) & \cdots & \phi_1(r_6)\\
-\phi_2(r_1) & \ddots & &\vdots \\
-\vdots & & \ddots& \vdots\\
-\phi_6(r_1) & \cdots & \cdots & \phi_6(r_6)
-\end{vmatrix}
-\propto
-\begin{vmatrix}
-\phi_1(r_1)& \phi_1(r_2)& \phi_1(r_3)\\
-\phi_3(r_1)& \phi_3(r_2)& \phi_3(r_3)\\
-\phi_5(r_1)& \phi_5(r_2)& \phi_5(r_3)
-\end{vmatrix}
-\cdot
-\begin{vmatrix}
-\phi_2(r_4)& \phi_2(r_5)& \phi_2(r_6)\\
-\phi_4(r_4)& \phi_4(r_5)& \phi_4(r_6)\\
-\phi_6(r_4)& \phi_6(r_5)& \phi_6(r_6)
-\end{vmatrix}
-\end{align}
-Sure we want to calculate the local energy for six electron as well. For this purpose, we will generalize equation~\ref{glg:localenergy} as following for $N$ electrons:
+Sure we want to calculate the local energy for six electron as well. For this purpose, we will generalize equation~\ref{glg:localenergy} as following for $6$ electrons:
 \begin{equation}
 E(\mathbf{R},\alpha,\beta) = \frac{1}{\psi_T} \left(-\frac{\hbar^2}{2m}\sum_{i=1}^6 \nabla^2_i\right) \frac{1}{\psi_T} + \sum_{i=1}^6 V_{oneparticle}(r_i) + \sum_{i<j}^6 V_{interaction}(|r_i-r_j|)
 \end{equation}
-In this case, we refer to the particles positions $(\mathbf{r_1,r_2,r_3,r_4,r_5,r_6})=\mathbf{R}$.\todo{Slaterdeterminantenzerlegung erklären}
+In this case, we refer to the particles positions $(\mathbf{r_1,r_2,r_3,r_4,r_5,r_6})=\mathbf{R}$.
 \subsection{Monte Carlo methods}
 The basis of the method explained above are the Monte Carlo methods, which can be referred to as statistical simulation methods. The central building block of these methods is the propability distribution function (PDF), which is used to describe and characterize the physical problem. This does not restrict the method to statistical problems, but by displaying the desired solution in terms of PDF's, non-stochastic problems can be handled as well. During a Monte-Carlo simulation, random numbers must be generated covering an interval uniformly. Using these numbers, many random samples are taken from the PDF. In order to get the desired result the average of all samples is computed. According to this, the precision of the simulation rises with the amount of samples. The error has to be estimated to get an impression of the simulation's precision.\\
 On the contrary of statistical random number-based methods, in standard mathematical modelling, the problem would be distretized and solved by a numerical approach.\\
@@ -132,9 +111,10 @@ r_{new} &= r_{old} + \eta + \delta t D F_{old},
 \end{align}
 where $\eta$ denotes a gaussian distributed random variable, $\delta t$ refers to the time step, $D$ is the diffusion constant, which is in our case set to $D=0.5$ and $F_{old}$ is the quantum force at position $r_{old}$. Note, that $\eta$ are different random numbers.\\
 The term responsible for biasing the walk in space $x$ is the quantum force, which leads the walk to regions with large trial wave function. In a brute force Metropolis algorithm, the propability of moving would be the same for all directions. The quantum force is
-\begin{equation}\label{eq:quantum_force}
-\mathbf{F} = 2 \frac{1}{\psi_T} \mathbf{\nabla} \psi_T
-\end{equation}
+\begin{align}\label{eq:quantum_force}
+\mathbf{F}&= 2 \frac{1}{\psi_T} \mathbf{\nabla} \psi_T\\
+&= 2 \left[|\mathbf{S\uparrow}(\alpha)||\mathbf{S\downarrow}(\alpha)|\prod_{i<j}^6 J(\beta)\right]^{-1} \mathbf{\nabla} \left(|\mathbf{S\uparrow}(\alpha)||\mathbf{S\downarrow}(\alpha)|\prod_{i<j}^6 J(\beta)\right).
+\end{align}
 In order to include this biasing in the Metropolis algorithm, we will replace
 \begin{align}
 q(r_{old},r_{new}) &= \frac{\vert \psi_T(r_{new})\vert^2}{\vert \psi_T(r_{old})\vert ^2}
