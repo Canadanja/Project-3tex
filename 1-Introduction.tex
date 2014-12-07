@@ -1,10 +1,13 @@
 \section{Introduction}
-
-
+Quantum computing today is an important research field, which requires qbits. Quantum dots as they are treated in this report are regarded as possible qbits. Furthermore, they might be agents for medical imaging and are therefore worth analysing. In this report we will consider systems of two and six electrons in a harmonic oscillator potential with and without electron-electron repulsion.\\
+For solving the two dimensional quantum mechanical eigenvalue problem of the ground state energy we will use the Variational Monte Carlo method (VMC), proposing trial wavefunctions, that contain variational parameters, to calculate the energy. Optimization of these parameters will lead to a wave function, that represents the actual wave function including just small errors and that will give us the opportunity to compute the ground state energy of these systems.\\
+The physical background is explained in section~\ref{sec:problem}, where we focus first on the unperturbed case in order to move on the interacting particles. The VMC method as basis of our simulation is then treated in section~\ref{sec:VMC}. To obtain optimized results we will also introduce importance sampling to the simulation in~\ref{sec:importance}. The calculations, especially those involving derivatives, will be done both numerically and analytically (see section~\ref{sec:closed_form} and~\ref{sec:analytical}).\\
+Testing the simulation we first place emphasis on the case of two electrons in section~\ref{sec:2electron} and then move on six electrons~\ref{sec:6electron}, where the Virialtheorem is verified as well. The computed energies are compared to those in~\cite{hogberget2013}.\\
+Finally the outcome is shortly presented in section~\ref{sec:conclusion}.\\ \bigskip
 
 In this report we will be using natural units:
 \begin{align*}
 \hbar = c = e = m_e = 1\\
 \Rightarrow [E] = \mathrm{a.u.},
 \end{align*}
-where $\hbar$ is the Planck constants divided by $2\pi$, $c$ is the speed of light, $e$ is the elemantary charge and $m_e$ is the electron mass. The unit of energy than becomes atomic units, denoted as a.u.
+where $\hbar$ is the Planck constants divided by $2\pi$, $c$ is the speed of light, $e$ is the elemantary charge and $m_e$ is the electron mass. The unit of energy than becomes atomic units, denoted as a.u. For reasons of simplicity we will not write the units explicitely in the report, so please note, that all energies are in a.u., as well as all distances and frequencies. The unit of the variational parameters $\alpha$ und $\beta$, that will be introduced later, are inverse a.u.
