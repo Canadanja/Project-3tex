@@ -34,12 +34,17 @@ After computing the ground state energy we now analyse the changement in energy 
 \begin{table}[H]
 \centering
 \caption{Kinetic and potential energy depending on the oscillator frequency $\omega$}
-\begin{tabular}{c|cc|cc}
-$\omega$ & $E_{kin} \mathrm{(a.u.)} $& $E_{pot} \mathrm{(a.u.)}$ & $E_{kin}/E \mathrm{(\%)}$ & $E_{pot}/E \mathrm{(\%)}$ \\ \hline
-1.00    & 0.8891  & 2.111  & 29.6 & 70.4 \\
-0.28 & 0.2616  & 0.774  & 25.3 & 74.7 \\
-0.01 & 0.0106 & 0.096 & 9.9 & 90.1
-\end{tabular}
+    \begin{tabular}{c|cc|c}
+   \toprule
+    $\omega$ & $E_{kin}$  & $E_{pot}$  & $E_{kin} (\%)$ \\ 
+    \midrule
+    0.01   & 0.010 & 0.064 & 14          \\
+    0.28   & 0.248  & 0.773  & 24       \\
+    0.50    & 0.452  & 1.206   & 27         \\
+    0.70    & 0.607  & 1.600   & 28           \\
+    1.00      & 0.862  & 2.137   & 29          \\
+    \bottomrule
+    \end{tabular}
 \label{tab:omega}
 \end{table}
 In the wave equation
@@ -51,11 +56,10 @@ For vanishing potential as for $\omega =0.01$ the wave function becomes:
 \begin{equation}
 \lim_{\omega\rightarrow 0} \psi_T(\mathbf{r_1,r_2}) = C \exp \left[ \frac{a_{12} r_{12}}{(1+\beta r_{12})} \right] = C J,
 \end{equation}
-where $J$ is the Jastrow factor. This means, that in this case the Jastrow factor adopts a more important role. The correlations introduced by the Jastro factor ...
+where $J$ is the Jastrow factor. This means, that in this case the Jastrow factor adopts a more important role. The correlations introduced by the Jastro factor \todo{correlations of Jastro factor}
 \subsubsection{Importance sampling: $\delta t$-dependency}
 To obtain accurate results we also introduce important sampling and optimize the calculation of the energy by studying its time step dependency. We will refer to the time step as $\delta t$. The time step plays an important role in importance sampling, since it the biasing when calculation new random numbers. For large $\delta t$ the newly picked random numbers for the particle position can vary more, than for smaller $\delta t$. It is therefore relevant to use a reasonable time step to aviod jumping to far in the position or to get stuck in one place as explained previously in section~\ref{sec:importance}. In figure~\ref{fig:importance} we plotted the energy calculated for $\alpha = 0.98$ and $\beta = 0.40$ (according to~\ref{sec:2electron}) for diverse $\delta t$. Comparing the results including importance sampling to those in section~\ref{sec:2electron} we notice, that with importance sampling we can obtain a lot smaller energies, than when using a brute force Metropolis algorithm. This shows, that the importance sampling has an impact on the precision of the results, because we get energies very near the exact solution.\\
-Concerning the optimal value of $\delta t$, it is obvious in figure~\ref{fig:importance}, that it must be $\delta t \in [0.1,0.2]$. Because of the statistical spread of the energy values, we cannot find the one and only perfect $\delta t$-value. For large time steps the energy converges to $E=3.0016$ ...
-%Gleicher Wert wie in Aufgabenteil b)?
+Concerning the optimal value of $\delta t$, it is obvious in figure~\ref{fig:importance}, that it must be $\delta t \in [0.1,0.2]$. Because of the statistical spread of the energy values, we cannot find the one and only perfect $\delta t$-value. For large time steps, that are still smaller than $\delta t= 4$ the energy converges to $E=3.002$. For even higher time steps, the calculated energy increases strongly and precise simulations become impossible.
 \begin{figure}[htbp]
     \centering
     \includegraphics[scale=0.6]{importance}
