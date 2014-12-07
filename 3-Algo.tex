@@ -122,7 +122,7 @@ This means, that we test whether the random number is smaller, than the squared 
 \texttt{ran2(\&idum)} <= q(r_{old},r_{new}) = \frac{\vert \psi_T(r_{new})\vert^2}{\vert \psi_T(r_{old})\vert ^2}
 \end{equation}
 \subsection{Importance sampling}\label{sec:importance}
-There are lots of examples in science, where biasing is disturbing and should be avoided. One example are the required unbiased uncorrelated random numbers in section~\ref{sec:ran}. In Monte-Carlo methods, biasing can be a tool to increase the simulation's efficiency by preforming a Metropolis walk biased by the trial wave function. Since our problem is somewhat simular to a diffusion process in one dimension for one particle, we may use an approach based on the Fokker-Planck and the Langevin equation.\\
+There are lots of examples in science, where biasing is disturbing and should be avoided. One example are the required unbiased uncorrelated random numbers in section~\ref{sec:ran}. In Monte-Carlo methods, biasing can be a tool to increase the simulation's efficiency by preforming a Metropolis walk biased by the trial wave function. Since our problem is somewhat simular to a diffusion process in one dimension for one particle, we may use an approach based on the Fokker-Planck and the Langevin equation and explained by~\cite{lecture}.\\
 The 'old' and 'new' positions in space can be caluclated by
 \begin{align}
 r_{old} &= \eta\\
