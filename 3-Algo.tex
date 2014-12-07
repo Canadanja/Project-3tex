@@ -1,5 +1,7 @@
 \section{The method}\label{sec:algo}
 Solving quantum mechanical eigenvalue problems can be a hard task, especially when it involes particle interaction and when the number of particles increases. This is why we introduce the Variational Monte Carlo Method for estimating the energy and the wave function of the electron states. Using this method we will be able to consider different oscillator potentials and varying numbers of particles.
+
+The repository to the program can be found under \url{https://github.com/Canadanja/Project-3.git}. 
 \subsection{Variational Monte Carlo method}\label{sec:VMC}
 In the Variational principle, we take the eigenvalue problem from equation~\ref{glg:eigenvalue} and expand the wave function as following:
 \begin{equation}
@@ -54,7 +56,7 @@ This means, that we need the second derivative of the trial wavefunction. There 
 \begin{equation}
 f''(x) = \frac{f(x+h)-2f(x)+f(x-h)}{h^2},
 \end{equation}
-where $f(x)$ is a function evaluated at $x$ and $h$ is the step length for the derivation. This calculation is a very timeconsuming part of our computation. This is why later, in section~\ref{sec:closedform} and~\ref{sec:analytical}, we will consider the analytical expressions of the derivative.
+where $f(x)$ is a function evaluated at $x$ and $h$ is the step length for the derivation. This calculation is a very timeconsuming part of our computation. This is why we will consider the analytical expressions of the derivative in section~\ref{sec:closedform} and~\ref{sec:analytical}.
 The factor $J = \exp \left[ \frac{a_{12} r_{12}}{(1+\beta r_{12})} \right]$ is called the Jastrow factor, which we will refer to later.\\
 In order to find the wave function and its corresponding energy to the case we are considering, we compute the expectation value $E(\alpha, \beta)$ and find its minimum or alternatively the minimum of its variance $\mathrm{var}(E(\alpha, \beta))$. This procedure is used in section~\ref{sec:result}.
 \subsubsection{Many-body problems}
@@ -78,8 +80,8 @@ As a main ingredient, random numbers play as important role in Monte-Carlo simul
 \item being fast
 \item generating insignificantly correlated numbers
 \end{itemize}
-I this report, we use random number generators explained in~\cite{numerical}, that are called \texttt{ran1} and \texttt{ran2}.\\
-Furthermore, we generate random gaussian distributed random numbers using \texttt{gaussian}. \todo{different random numbers?}
+I this report, we use random number generators explained in~\cite{numerical}, that are called \texttt{ran1} and \texttt{ran2} and are provided by the lib-package of the computational physics course.\\
+Furthermore, we generate random gaussian distributed random numbers using \texttt{gaussian}. 
 \subsection{Metropolis algorithm}\label{sec:metropolis}
 The difficult part of Monte-Carlo simulations is the selection rule for random states. One must find a method when to reject and when to accept the generated state. Precision and efficiency strongly depend on this rule. Supposing we have a distribution such as the one shown in figure~\ref{fig:distribution} and we have already picked an initial random variable at $r_i$. Since we are performing the simulation on many samples, we now have to pick a new random number keeping in mind, that there are two cases, which must be avoided:
 \begin{itemize}
@@ -124,9 +126,11 @@ q(r_{old},r_{new}) &= \frac{G(r_{old},r_{new},\delta t) \vert \psi_T(r_{new})\ve
 G(y,x,\delta t) &= \frac{1}{(4\pi D\delta t)^{3N/2}} \exp\left[-(y-x-D \delta t F(x))^2 \frac{1}{4D \delta t} \right]
 \end{align}
 
+\subsection{Parallelization}
+The code is parallelized with shared memory and realized through OpenMP. Every core goes thereby through the whole Monte-Carlo simulation and at the end the mean of the energies are taken. 
 
 \subsection{Closed form solutions}\label{sec:closed_form}
-The quantum force (eq. \ref{eq:quantum_force}) and the kinetic energy part \todo{referenzierung auf funktion} are until now calculated by a brute force derivation. A disadvantage of this method is, that the wavefunction has to be evaluated multiple times at different positions $r+h$, $r-h$ respectively. In order to optimize this step one can implement the analytical expressions. These are derived in \citet{hogberget2013}. The quantum force can thereby be expressed by
+The quantum force (eq. \ref{eq:quantum_force}) and the kinetic energy part in equation \ref{glg:localenergy} are until now calculated by a brute force derivation. A disadvantage of this method is, that the wavefunction has to be evaluated multiple times at different positions $r+h$, $r-h$ respectively. In order to optimize this step one can implement the analytical expressions. These are derived for example in \citet{hogberget2013}. The quantum force can thereby be expressed by
 \begin{equation}
 \mathbf{F_i} = 2 \left( \frac{\nabla_i |\mathbf{S\uparrow}|}{|\mathbf{S\uparrow}|} + \frac{\nabla_i J}{J} \right).
 \end{equation}
@@ -144,7 +148,7 @@ for the gradient and
 \begin{equation}
     \frac{\nabla_i^2 J}{J} = \left| \frac{\nabla_i J}{J} \right| - \sum_{k\neq i = 1}^{N}a_{ik} \frac{\beta r_{ik} - 1}{r_{ik}\left(1 +\beta r_{ik} \right)^3} 
 \end{equation}
-for the laplacian of the jastrow factor. The variables and constants are the already known ones of equation \ref{} \todo{referenz zu trialwavefunction für viele teilchen}. The derivations of the Slater determinants can be calculated to
+for the laplacian of the Jastrow-factor. The derivations of the Slater determinants can be calculated to
 \begin{equation}\label{eq:gradientslater}
     \frac{\nabla_i |\mathbf{S}|}{|\mathbf{S}|} = \sum_k \left( \nabla_i \phi_k(\mathbf{r}_i)\right)(\mathbf{S}_{ki}^{-1})
 \end{equation}
@@ -153,5 +157,3 @@ for the gradient and
     \frac{\nabla_i^2 |\mathbf{S}|}{|\mathbf{S}|} = \sum_k^{N/2} \left( \nabla_i^2 \phi_k(\mathbf{r}_i)\right)(\mathbf{S}_{ki}^{-1})
 \end{equation}
 for the laplacian. For the first part on the right side of eqs. \ref{eq:gradientslater} and \ref{eq:laplacianslater} exists analytical expressions which can be determined by applying the operands on the single particle equation \ref{glg:wavefunc1}. These can also be found in tabulated form in \citet[app. D]{hogberget2013}. The last term $\mathbf{S}_{ki}^{-1}$ is the transpose of the inverse Slater matrix. 
-
-The closed form solutions are fully implemented in the code and can be found at Github on the branch \texttt{closed\_form}. Unfortunately there were still unresolved problems which yielded to non-correct energies in the solutions (details in the evaluation). 

@@ -72,7 +72,7 @@ For further simulations we will vary the time step depending on the oscillator f
 \FloatBarrier
 
 \subsection{Six electron case}
-In this part we introduce the six electron case. In order to do so we consider the more general trial wave function \ref{glg:6electron} which also includes the case of two electrons. The simulations are done like in section \ref{sec:2electron} but with $400000$ cycles, because of higher computation times.
+In this part we introduce the six electron case. In order to do so we consider the more general trial wave function \ref{glg:6electron} which also can be reduced to the case of two electrons. The simulations are done like in section \ref{sec:2electron} but with $400000$ cycles, because of higher computation times. These are devided on 4 threads. For the time-step of the importance sampling (eq. \ref{eq:quantum_force}) we use the value $\delta t = 0.5$. 
 
 \subsubsection{Perturbed Case}\label{sec:perturbed_six}
 For the perturbed six electron system the ground state energies are shown in table \ref{tab:groundstate_sixelectron}. Comparing the energies with \citet[TABLE III]{lohne2011} we have a good agreement but slightly larger values. For increasing $\omega$ we have higher values of $\alpha$ and $\beta$. Figure \ref{fig:alpha_beta_omega} shows the dependencies in this case. It can be seen that there is no easy linear coherence, instead we made an arbitrarily chosen fit with a square-root function which seemed for us the best approximation and deals a reference where to search for the energy minima for different $\omega$. 
@@ -80,22 +80,25 @@ For the perturbed six electron system the ground state energies are shown in tab
     \centering
     \caption{Ground state energies for six electrons in an oscillator well.}
     \begin{tabular}{c|cc|c}
-    $\omega$   & $\alpha$    & $\beta$ &    $E$    \\ \hline
+    \toprule
+    $\omega$   & $\alpha$    & $\beta$ &    $E$    \\
+    \midrule
     $1.00$     & $0.98$      & $0.45$  & $20.185$  \\
     $0.5$      & $0.925$	    & $0.38$  & $11.8047$ \\
     $0.28$     & $0.8$       & $0.25$  & $7.736$   \\
     $0.01$     & $0.7$       & $0.08$  & $0.6986$  \\
+    \bottomrule
     \end{tabular}
     \label{tab:groundstate_sixelectron}
 \end{table}
 \begin{figure}[htbp]
     \centering
     \includegraphics[scale=0.7]{alpha_beta_omega.pdf}
-    \caption{Shows the dependency between the locations of the energy minima and the variational parameter.}
+    \caption{Shows the dependency between the locations of the energy minima and the variational parameter. The fit is arbitrary and just to have an orientation which values for $\alpha$ and $\beta$ can be considered in order to reach the minimum.}
     \label{fig:alpha_beta_omega}
 \end{figure}
 
-All in all our code seems to calculate reliable and good energies. Nevertheless we had to struggle with rather seldom but randomly appearing negative kinetic energies in single cores when using importance sampling. Changing our initial guesses for the starting positions increased here the quality of the solution considerably. In Appendix \todo{reference} are shown some three-dimensional plots which show the problem. 
+All in all our code seems to calculate reliable and good energies. Nevertheless we had to struggle with rather seldom but randomly appearing negative kinetic energies in single cores when using importance sampling. Changing our initial guesses for the starting positions increased here the quality of the solution considerably. In appendix \ref{sec:app_six_electron} are shown some three-dimensional plots which show the problem. 
 
 \subsubsection{Unperturbed Case}
 We know that with switched off electron-electron repulsion the lowest energy value should become $10\,\omega$, since we are observing six electrons. In figure \ref{fig:six_electron_unperturbed} this relation is shown for different $\omega$ over $\alpha$ and it can be observed that our results fit very well to the theory. 
@@ -126,4 +129,20 @@ In figure \ref{fig:virialtheorem} this behaviour is shown and mostly consistent.
 \end{figure}
 
 \subsection{Closed form solutions}\label{sec:closed_form_eval}
-Finally we still want to introduce calculations with the closed form solutions described in section \ref{sec:closed_form}. For that reason the program was restructured in parts and new classes for the Jastrow-factor and the Slater-matrix were introduced. This can be found at the separate branch \texttt{closed\_form} at the provided git repository. The part is fully implemented but unfortunately we were not able to reproduce the solution of the brute force approximations. But still, because we implemented the full code, we were able to examine the time profiling. We thereby implemented no optimizations, like an improved calculation of the inverse slater matrix yet (see \citet{hogberget2013} for more details). An overview for the profiling is given in the table \ref{} \todo{reference}.
+Finally we still want to perform calculations with the closed form solutions described in section \ref{sec:closed_form}. For that reason the program was restructured in parts and new classes for the Jastrow-factor and the Slater-matrix were introduced. This can be found at the separate branch \texttt{closed\_form} at the provided git repository. The part is fully implemented but unfortunately we were not able to reproduce the solution of the brute force approximations. But still, because we implemented the full code, we are able to examine the time profiling. We thereby used no optimizations yet, like an improved calculation of the inverse slater matrix yet (see \citet{hogberget2013} for more details). An overview for the profiling is given in the table \ref{tab:cpu-time}. It was done by calculating $5$ steps with $400000$ cycles on $4$ cores either for $N=2$ or $N=6$ electrons. The time is measured by the linux-command \texttt{time}.
+ \begin{table}[htbp]
+    \centering
+    \caption{CPU-time comparison between closed-form and brute-force measurement}
+    \begin{tabular}{c|cc}
+    \toprule
+    number of electrons   & closed-form    & brute-force   \\
+    \midrule
+    $2$     & \SI{243.728}{\second}   & \SI{199.636}{\second}  \\
+    $6$     & \SI{1448.431}{\second}  & \SI{4779.976}{\second}  \\
+    \bottomrule
+    \end{tabular}
+    \label{tab:cpu-time}
+\end{table}
+
+For two electrons it is apparent that the closed-form solution is not faster than the brute-force one. This is probably the case because the evaluation of the wavefunction for only two electrons takes not much time, whereas the calculation of the closed derived formulas inhibits many floating point operations. That the closed-form solution makes sense shows up clearly for six electrons. There the calculation is by a factor of approximately $3.3$ faster, although elaborative calculations like the one of the inverse slater matrix in the equations of section \ref{sec:closed_form} are not stores and evaluated unnecessary often. Additionally further possible optimizations for the closed-form solution which are not possible in case of a brute force algorithm are not realized. 
+
