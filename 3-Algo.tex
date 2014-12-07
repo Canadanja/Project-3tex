@@ -88,23 +88,41 @@ The difficult part of Monte-Carlo simulations is the selection rule for random s
 \item Choosing repeatedly numbers very close to the initial value such as $r_j$ in figure~\ref{fig:distribution}. We would then 'get stuck' around the interval of $r_i$ and therefore loose the overview of the function we are evalutating.
 \item Jumping to numbers far away from the initial value, where the distribution is negligable, for example to $r_k$ in figure~\ref{fig:distribution}. 
 \end{itemize}
-\begin{figure}[htbp]
+\begin{SCfigure}[30][h]
     \centering
-    \includegraphics[scale=0.45]{distribution}
+    \includegraphics[scale=0.35]{distribution}
     \caption{Gaussian distribution showing problems in selection of random states}
     \label{fig:distribution}
-\end{figure}
+\end{SCfigure}
+\FloatBarrier
 Preventing the simulation in creating biased averages and unprecise results is possible by using the Metropolis algorithm, which is a Markov process, satisfying both ergodicity and detailed balance.\\
 Ergocidity in random processes means, that the time average of a sequence of events has to be the same as the average of all possible states, the so-called ensemble-average. In order to obey detailed balance, the process must follow a distribution, where the transition propability from state $i$ to state $j$ is the same as from state $j$ to state $i$ at equilibrium. This is also called reversibility.\\
 Markov chains are referred to as random walks with selected propability to make a move, which is independent of the previous step. An example of this movement is the Brownian random walk shown in figure~\ref{fig:Brown}, where a particle moves in the $x$-$y$-plane with step length 1 preforming hundred steps. The propability of moving is the same for every direction. Using Markov processes, we can generate new random states and reach the most likely state (equilibrium) after a certain time.
-\begin{figure}[htbp]
+\begin{SCfigure}[30][h]
     \centering
-    \includegraphics[scale=0.6]{Brown}
+    \includegraphics[scale=0.45]{Brown}
     \caption{Brownian random walk of 100 steps in $x$-$y$-plane and step length 1}
     \label{fig:Brown}
-\end{figure}
+\end{SCfigure}
 \FloatBarrier
-\subsubsection{Importance sampling}\label{sec:importance}
+In this report we have implemented the Metropolis test as following:
+\begin{lstlisting}
+// ----------------- metropolis test ---------------------------- //
+if (ran2(&idum) <= wfnew*wfnew/wfold/wfold){
+    for (j = 0; j < dimension; j++){
+         r_old(i,j) = r_new(i,j);
+         }
+    wfold = wfnew;
+    accept = accept + 1;
+    }
+}
+\end{lstlisting}
+where \texttt{wfnew} and \texttt{wfold} are the wave functions $\Psi(r_{old})$ and $\Psi(r_{new})$ and \texttt{ran2()} generates random numbers.\\
+This means, that we testwhether the random number is smaller, than the squared wave function at the new position devided by the squared wave function at the old position:
+\begin{equation}
+\texttt{ran2(\&idum)} <= q(r_{old},r_{new}) = \frac{\vert \psi_T(r_{new})\vert^2}{\vert \psi_T(r_{old})\vert ^2}
+\end{equation}
+\subsection{Importance sampling}\label{sec:importance}
 There are lots of examples in science, where biasing is disturbing and should be avoided. One example are the required unbiased uncorrelated random numbers in section~\ref{sec:ran}. In Monte-carlo methods, biasing can be a tool to increase the simulation's efficiency by preforming a Metropolis walk biased by the trial wave function. Since our problem is somewhat simular to a diffusion process in one dimension for one particle, we may use an approach based on the Fokker-Planck and the Langevin equation.\\
 The 'old' and 'new' positions in space can be caluclated by
 \begin{align}
@@ -121,13 +139,29 @@ In order to include this biasing in the Metropolis algorithm, we will replace
 \begin{align}
 q(r_{old},r_{new}) &= \frac{\vert \psi_T(r_{new})\vert^2}{\vert \psi_T(r_{old})\vert ^2}
 \intertext{by}
-q(r_{old},r_{new}) &= \frac{G(r_{old},r_{new},\delta t) \vert \psi_T(r_{new})\vert^2}{G(r_{new},r_{old},\delta t) \vert \psi_T(r_{old})\vert^2},
+q(r_{old},r_{new}) &= \frac{G(r_{old},r_{new},\delta t) \vert \psi_T(r_{new})\vert^2}{G(r_{new},r_{old},\delta t) \vert \psi_T(r_{old})\vert^2}, \label{glg:importance_s}
 \intertext{where the quantity $G$ refers to the Greensfunction}
 G(y,x,\delta t) &= \frac{1}{(4\pi D\delta t)^{3N/2}} \exp\left[-(y-x-D \delta t F(x))^2 \frac{1}{4D \delta t} \right]
 \end{align}
+In the source code this lookes like:
+\begin{lstlisting}
+// ----------------- metropolis test ---------------------------- //
+if (ran2(&idum) <= greensfunction*wfnew*wfnew/wfold/wfold){
+    for (j = 0; j < dimension; j++){
+         r_old(i,j) = r_new(i,j);
+         qforce_old(i,j) = qforce_new(i,j); 
+         }
+    wfold = wfnew;
+    accept = accept + 1;
+    }
+}
+\end{lstlisting}
+Compared to the source code in section~\ref{sec:metropolis} we have just added to things: the additional \texttt{greensfunction} and the line, where we set \texttt{qforce\_old} to be \texttt{qforce\_new}. This is equivalent to what happens in equation~\ref{glg:importance_s}.
+
 
 \subsection{Parallelization}
 The code is parallelized with shared memory and realized through OpenMP. Every core goes thereby through the whole Monte-Carlo simulation and at the end the mean of the energies are taken. 
+
 
 \subsection{Closed form solutions}\label{sec:closed_form}
 The quantum force (eq. \ref{eq:quantum_force}) and the kinetic energy part in equation \ref{glg:localenergy} are until now calculated by a brute force derivation. A disadvantage of this method is, that the wavefunction has to be evaluated multiple times at different positions $r+h$, $r-h$ respectively. In order to optimize this step one can implement the analytical expressions. These are derived for example in \citet{hogberget2013}. The quantum force can thereby be expressed by

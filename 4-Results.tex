@@ -9,42 +9,48 @@ For the computation we use the variational wave function
 \end{equation}
 where we start by considering a wide range of $\alpha \in[0.7,1.3]$ and $\beta \in[0.2,0.6]$ first and perform a more precise simulation afterwards. The goal is to find the variational parameters $\alpha$ and $\beta$, where the energy is at its minimum. After the first simulation we notice, that the minimum must be somewhere around $\alpha \in[0.9,1.1]$ and $\beta \in[0.35,0.45]$. This is why we preform a simulation with these boundaries and use 3 000 000 Metropolis cycles to get an accurate result. In figure~\ref{fig:2electron} the energy is plotted depending on both variational parameters $\alpha$ and $\beta$. The 3D-plot results in a bended plane resembling to the shape of a valley. For increasing $\alpha$ the corresponding $\beta$ at minimal energy is decreasing. The minimum energy calculated is 
 \begin{align}
-E &= 3.0003~\mathrm{a.u.}
+E &= 3.0003
 \intertext{at}
 \alpha &= 0.9867,\\
 \beta &= 0.4033
 \intertext{and at a mean distance of}
-r_{12} &=1.607 ~\mathrm{a.u.}
+r_{12} &=1.607
 \end{align}
 As mentioned before we were expecting the energy to be at $E=3~\mathrm{a.u.}$, so the calculated value matches the expected one very well. In figure~\ref{fig:2electron} there are some areas, where the plane is not as smooth as in others. We classify these small perturbations to the valley as numerical fluctuations and consider them to be stronly important.\\
-To get a better understanding of the influence the parameters have on the calculated energy, figure~\ref{fig:2electronalpha} shows the energy's $\alpha$-dependency for different $\beta$. Consistent with figure~\ref{fig:2electron} this figure reveals, that $\beta$ is shifted depending on $\alpha$ and that $\alpha$ has a larger influence on the energy than the other variational parameter. The errors plotted in figure~\ref{fig:2electronalpha} are almost invisible, since they are very small compared to the energy fluctuations at varying $\alpha$ and $\beta$. There are not many cases, where the error is significantly high, so we consider our results to be of sufficient accuracy.
+To get a better understanding of the influence the parameters have on the calculated energy, figure~\ref{fig:2electronalpha} shows the energy's $\alpha$-dependency for different $\beta$. Consistent with figure~\ref{fig:2electron} this figure reveals, that $\beta$ is shifted depending on $\alpha$ and that $\alpha$ has a larger influence on the energy than the other variational parameter. The errors plotted in figure~\ref{fig:2electronalpha} are almost invisible, since they are very small compared to the energy fluctuations at varying $\alpha$ and $\beta$. In figure~\ref{fig:VMCfein} we also show the energy minimum dependent on $\beta$. In this plot, the errors seem to be larger, but in order to find the minimum, we had to look at a very small energy scale. Overall there are not many cases, where the error is significantly high, so we consider our results to be of sufficient accuracy.
 \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.6]{2electron}
+    \includegraphics[scale=0.45]{2electron}
     \caption{Plot of $\alpha$- and $\beta$-dependencies of the ground state energy for two interacting electrons at the ground state based on a simulation involving 3 000 000 Metropolis cycles}
     \label{fig:2electron}
 \end{figure}
 \begin{figure}[htbp]
     \centering
-    \includegraphics[scale=0.6]{2electronalpha}
+    \includegraphics[scale=0.45]{2electronalpha}
     \caption{Plot of $\alpha$-dependency of the ground state energy for two interacting electrons at the ground state for different $\beta$ based on a simulation involving 3 000 000 Metropolis cycles}
     \label{fig:2electronalpha}
 \end{figure}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[scale=0.45]{VMCfein}
+    \caption{Plot of $\beta$-dependency of the ground state energy for two interacting electrons at the ground state for different $\alpha$ based on a simulation involving 12 000 000 Metropolis cycles}
+    \label{fig:VMCfein}
+\end{figure}
 \FloatBarrier
 \subsubsection{Jastrow factor}\label{sec:Jastro}
-After computing the ground state energy we now analyse the changement in energy arising from different osciallator potentials $\omega$. The results for $\omega =\{1,0.28,0.01\}$ are shown in table~\ref{tab:omega}. It can be observed, that for small oscillator frequency the kinetic energy drops relative to the total energy of the system. The reason for this is, that for small $\omega$ the potential gets wider, but flatter as well. In this case, the electrons interact less with each other, because they are further apart. As a result, kinetic energy drops.\\
+After computing the ground state energy we now analyse the changement in energy arising from different osciallator potentials $\omega$. The corresponding 3D-plots with the $\alpha$-$\beta$-dependency of the energy can be found in~\ref{sec:appendix}. The results for $\omega =\{1.00, 0.70, 0.50,0.28,0.01\}$ are shown in table~\ref{tab:omega}. It can be observed, that for small oscillator frequency the kinetic energy drops relative to the total energy of the system. The reason for this is, that for small $\omega$ the potential gets wider, but flatter as well. In this case, the electrons interact less with each other, because they are further apart. As a result, kinetic energy drops.\\
 \begin{table}[H]
 \centering
 \caption{Kinetic and potential energy depending on the oscillator frequency $\omega$}
-    \begin{tabular}{c|cc|c}
+    \begin{tabular}{c|cc|c|c|c}
    \toprule
-    $\omega$ & $E_{kin}$  & $E_{pot}$  & $E_{kin} (\%)$ \\ 
+    $\omega$ & $E_{kin}$  & $E_{pot}$  & $E_{kin} (\%)$ & $E_{total}$ & $E_{\citep{hogberget2013}}$ \\ 
     \midrule
-    0.01   & 0.010 & 0.064 & 14          \\
-    0.28   & 0.248  & 0.773  & 24       \\
-    0.50    & 0.452  & 1.206   & 27         \\
-    0.70    & 0.607  & 1.600   & 28           \\
-    1.00      & 0.862  & 2.137   & 29          \\
+    0.01   & 0.010 & 0.064 & 14   & 0.074    & 0.074   \\
+    0.28   & 0.248  & 0.773  & 24   & 1.021   & 1.022  \\
+    0.50    & 0.452  & 1.206   & 27   & 1.658  & 1.660    \\
+    0.70    & 0.607  & 1.600   & 28   &  2.207    & -   \\
+    1.00      & 0.862  & 2.137   & 29   & 3.0003  & 3.0003    \\
     \bottomrule
     \end{tabular}
 \label{tab:omega}
@@ -79,14 +85,14 @@ For the perturbed six electron system the ground state energies are shown in tab
 \begin{table}
     \centering
     \caption{Ground state energies for six electrons in an oscillator well.}
-    \begin{tabular}{c|cc|c}
+    \begin{tabular}{c|cc|c|c}
     \toprule
-    $\omega$   & $\alpha$    & $\beta$ &    $E$    \\
+    $\omega$   & $\alpha$    & $\beta$ &    $E$  & $E_{\citep{hogberget2013}}$  \\ 
     \midrule
-    $1.00$     & $0.98$      & $0.45$  & $20.185$  \\
-    $0.5$      & $0.925$	    & $0.38$  & $11.8047$ \\
-    $0.28$     & $0.8$       & $0.25$  & $7.736$   \\
-    $0.01$     & $0.7$       & $0.08$  & $0.6986$  \\
+    $0.01$     & $0.700$       & $0.08$  & $0.6986$ & - \\
+    $0.28$     & $0.800$       & $0.25$  & $7.7360$  & 7.6216 \\
+    $0.50$      & $0.925$	    & $0.38$  & $11.8047$ & 11.8103 \\
+    $1.00$     & $0.980$      & $0.45$  & $20.1850$ & 20.1902 \\
     \bottomrule
     \end{tabular}
     \label{tab:groundstate_sixelectron}
@@ -98,7 +104,8 @@ For the perturbed six electron system the ground state energies are shown in tab
     \label{fig:alpha_beta_omega}
 \end{figure}
 
-All in all our code seems to calculate reliable and good energies. Nevertheless we had to struggle with rather seldom but randomly appearing negative kinetic energies in single cores when using importance sampling. Changing our initial guesses for the starting positions increased here the quality of the solution considerably. In appendix \ref{sec:app_six_electron} are shown some three-dimensional plots which show the problem. 
+
+All in all our code seems to calculate reliable and good energies. Nevertheless we had to struggle with rather seldom but randomly appearing negative kinetic energies in single cores when using importance sampling. Changing our initial guesses for the starting positions increased here the quality of the solution considerably. In Appendix~\ref{sec:appendix} are shown some three-dimensional plots which show the problem, which results in high peaks for the energy. 
 
 \subsubsection{Unperturbed Case}
 We know that with switched off electron-electron repulsion the lowest energy value should become $10\,\omega$, since we are observing six electrons. In figure \ref{fig:six_electron_unperturbed} this relation is shown for different $\omega$ over $\alpha$ and it can be observed that our results fit very well to the theory. 
@@ -124,11 +131,11 @@ In figure \ref{fig:virialtheorem} this behaviour is shown and mostly consistent.
 \begin{figure}[htbp]
     \centering
     \includegraphics[scale=0.7]{virialtheorem}
-    \caption{Shows the fraction of the mean kin. energy $\langle T \rangle$ to the mean pot. energy $\langle V \rangle$ for different values of $\omega$. The calculations are done with either two or six electrons.}
+    \caption{Shows the fraction of the mean kin. energy $\langle T \rangle$ to the mean pot. energy $\langle V \rangle$ for different values of $\omega$. The calculations are done with either two or six electrons. The unperturbed function}
     \label{fig:virialtheorem}
 \end{figure}
 
-\subsection{Closed form solutions}\label{sec:closed_form_eval}
+\subsection{Closed form solutions}\label{sec:analytical}
 Finally we still want to perform calculations with the closed form solutions described in section \ref{sec:closed_form}. For that reason the program was restructured in parts and new classes for the Jastrow-factor and the Slater-matrix were introduced. This can be found at the separate branch \texttt{closed\_form} at the provided git repository. The part is fully implemented but unfortunately we were not able to reproduce the solution of the brute force approximations. But still, because we implemented the full code, we are able to examine the time profiling. We thereby used no optimizations yet, like an improved calculation of the inverse slater matrix yet (see \citet{hogberget2013} for more details). An overview for the profiling is given in the table \ref{tab:cpu-time}. It was done by calculating $5$ steps with $400000$ cycles on $4$ cores either for $N=2$ or $N=6$ electrons. The time is measured by the linux-command \texttt{time}.
  \begin{table}[htbp]
     \centering
