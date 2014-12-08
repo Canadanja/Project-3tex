@@ -1,10 +1,12 @@
 \section{Conclusion}\label{sec:conclusion}
-In this project, we have preformed a Variational Monte Carlo simulation computing the energies of various electron systems.
+In this project, we have performed a Variational Monte Carlo simulation computing the energies of various electron systems.
 
-In good accordance to~\cite{hogberget2013} we have calculated the ground state energy of two electrons in a (harmonic oscillator) trap at $E=3.0003$ as well as for diverse oscialltor frequencies. Introducing importance sampling we have analysed the importance of the time step $\delta t$ in the sampling noticing, that the simulation is stable for a range of $\delta t < 3$. Moving on to six electrons it turned out, that the time step is responsible for the simulation stability. For inappropriate $\delta t$ we experienced outliers in the energy calculation, that can be seen in figure~\ref{fig:psix1} and~\ref{fig:psix05}. Overall the calculated energies correspond pretty well to those found by~\cite{hogberget2013} and~\cite{lohne2011}, which indicates that although those problems continue existing, we were able to extract suitable output from the simulation.
+In good accordance to~\cite{hogberget2013} we have calculated the ground state energy of two electrons in a (harmonic oscillator) trap at $E=3.0003$ as well as for diverse oscillator frequencies. Introducing importance sampling we have analysed the importance of the time step $\delta t$ in the sampling noticing, that the simulation is stable for a range of $\delta t < 3$. 
+
+Moving on to six electrons it turned out, that the time step is responsible for the simulation stability. For inappropriate $\delta t$ we experienced outliers in the energy calculation, that can be seen in figure~\ref{fig:psix1} and~\ref{fig:psix05}. Overall the calculated energies correspond pretty well to those found by~\cite{hogberget2013} and~\cite{lohne2011}, which indicates that although those problems continue existing, we were able to extract suitable output from the simulation.
 
 Another evidence, that the calculations are correct is given by the fact, that the virial-theorem is confirmed by our computations apart from small errors.
 
 Furthermore, we were able to propose a relation of the variational parameters and the oscillator frequency in section~\ref{sec:perturbed_six}. 
 
-In order to show the advantages of closed-form solutions towards brute-force derivations we compared the time profile. Here it showed off that especially for larger electron systems the closed-form can deliver more performant calculations. 
+In order to show the advantages of closed-form solutions towards brute-force derivations we compared the time profile. Here it showed off that especially for larger electron systems the closed-form can increase the velocity of the calculations considerably. 
